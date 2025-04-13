@@ -23,38 +23,74 @@ namespace Library.Data
 
         public void AddUser(string name, string surname, string email)
         {
-
+            User user = new(name, surname, email);
+            libraryState.Users.Append(user);
+            events.Add(new EventAddUser(user.GUID, DateTime.Now));
         }
         public void RemoveUser(Guid guid)
         {
-
+            var user = libraryState.Users.FirstOrDefault(u => u.GUID == guid);
+            if (user != null)
+            {
+                libraryState.Users.Remove(user);
+                events.Add(new EventRemoveUser(user.GUID, DateTime.Now));
+            }
         }
 
-        public void AddBook(string title, string author, string genre, int year)
+        public void AddBook(string title, string author, string genre, int year, string ISBN, int pageCount)
         {
-
+            Book book = new(title, author, genre, year, ISBN, pageCount);
+            libraryState.Books.Append(book);
+            events.Add(new EventAddBook(book.GUID, DateTime.Now));
         }
         public void RemoveBook(Guid guid)
         {
-
+            var book = libraryState.Books.FirstOrDefault(b => b.GUID == guid);
+            if (book != null)
+            {
+                libraryState.Books.Remove(book);
+                events.Add(new EventRemoveBook(book.GUID, DateTime.Now));
+            }
         }
 
         public void BorrowBook(Guid bookGuid, Guid userGuid)
         {
-
+            var book = libraryState.Books.FirstOrDefault(b => b.GUID == bookGuid);
+            var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
+            if (book != null && user != null && book.IsAvailable)
+            {
+                book.SetAvailability(false);
+                events.Add(new EventBorrowBook(book.GUID, user.GUID, DateTime.Now));
+            }
         }
         public void ReturnBook(Guid bookGuid, Guid userGuid)
         {
-
+            var book = libraryState.Books.FirstOrDefault(b => b.GUID == bookGuid);
+            var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
+            if (book != null && user != null && !book.IsAvailable)
+            {
+                book.SetAvailability(true);
+                events.Add(new EventReturnBook(book.GUID, user.GUID, DateTime.Now));
+            }
         }
 
         public void GiveFine(Guid userGuid, double amount)
         {
-
+            var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
+            if (user != null)
+            {
+                user.SetFineAmount(user.FineAmount + amount);
+                events.Add(new EventSetFine("Fine_Given",user.GUID, DateTime.Now, amount));
+            }
         }
         public void PayFine(Guid userGuid, double amount)
         {
-
+            var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
+            if (user != null)
+            {
+                user.SetFineAmount(user.FineAmount - amount);
+                events.Add(new EventSetFine("Fine_Paid", user.GUID, DateTime.Now, -amount));
+            }
         }
     }
 }

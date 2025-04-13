@@ -19,7 +19,7 @@ namespace Library.Data.Interfaces
         public void AddUser(string name, string surname, string email);
         public void RemoveUser(Guid guid);
 
-        public void AddBook(string title, string author, string genre, int year);
+        public void AddBook(string title, string author, string genre, int year, string ISBN, int pageCount);
         public void RemoveBook(Guid guid);
 
         public void BorrowBook(Guid bookGuid, Guid userGuid);
