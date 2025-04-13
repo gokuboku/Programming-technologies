@@ -5,16 +5,14 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Library.Data;
-using Library.Data.Interfaces;
-using Library.Data.Objects;
 
 namespace Library.Logic.Services
 {
     internal class BookService
     {
-        private IRepository repo;
+        private Repository repo;
 
-        public BookService(IRepository repository)
+        public BookService(Repository repository)
         {
             this.repo = repository;
         }
