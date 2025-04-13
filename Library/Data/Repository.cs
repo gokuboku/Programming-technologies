@@ -16,17 +16,23 @@ namespace Library.Data
         private List<Event> events = new();
 
 
-        public IEnumerable<User> GetAllUsers() => libraryState.Users;
-        public IEnumerable<Book> GetCatalog() => libraryState.Books;
+        public List<User> GetAllUsers() => libraryState.Users;
+        public List<Book> GetCatalog() => libraryState.Books;
         public LibraryState GetLibraryState() => libraryState;
-        public IEnumerable<Event> GetEvents() => events;
+        public List<Event> GetEvents() => events;
 
         public void AddUser(string name, string surname, string email)
         {
             User user = new(name, surname, email);
-            libraryState.Users.Append(user);
+            AddUser(user);
+            
+        }
+        public void AddUser(User user)
+        { 
+            libraryState.Users.Add(user);
             events.Add(new EventAddUser(user.GUID, DateTime.Now));
         }
+
         public void RemoveUser(Guid guid)
         {
             var user = libraryState.Users.FirstOrDefault(u => u.GUID == guid);
@@ -40,15 +46,21 @@ namespace Library.Data
         public void AddBook(string title, string author, string genre, int year, string ISBN, int pageCount)
         {
             Book book = new(title, author, genre, year, ISBN, pageCount);
-            libraryState.Books.Append(book);
+            AddBook(book);
+        }
+
+        public void AddBook(Book book)
+        {
+            libraryState.Books.Add(book);
             events.Add(new EventAddBook(book.GUID, DateTime.Now));
         }
+
         public void RemoveBook(Guid guid)
         {
-            var book = libraryState.Books.FirstOrDefault(b => b.GUID == guid);
+            var book = libraryState.Books.Find(b => b.GUID == guid);
             if (book != null)
             {
-                libraryState.Books.Remove(book);
+                var temp = libraryState.Books.Remove(book);
                 events.Add(new EventRemoveBook(book.GUID, DateTime.Now));
             }
         }
@@ -63,6 +75,7 @@ namespace Library.Data
                 events.Add(new EventBorrowBook(book.GUID, user.GUID, DateTime.Now));
             }
         }
+
         public void ReturnBook(Guid bookGuid, Guid userGuid)
         {
             var book = libraryState.Books.FirstOrDefault(b => b.GUID == bookGuid);
@@ -83,13 +96,14 @@ namespace Library.Data
                 events.Add(new EventSetFine("Fine_Given",user.GUID, DateTime.Now, amount));
             }
         }
+
         public void PayFine(Guid userGuid, double amount)
         {
             var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
             if (user != null)
             {
                 user.SetFineAmount(user.FineAmount - amount);
-                events.Add(new EventSetFine("Fine_Paid", user.GUID, DateTime.Now, -amount));
+                events.Add(new EventSetFine("Fine_Paid", user.GUID, DateTime.Now, amount));
             }
         }
     }

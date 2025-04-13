@@ -11,10 +11,10 @@ namespace Library.Data.Interfaces
 {
     public interface IRepository
     {
-        public IEnumerable<User> GetAllUsers();
-        public IEnumerable<Book> GetCatalog();
+        public List<User> GetAllUsers();
+        public List<Book> GetCatalog();
         public LibraryState GetLibraryState();
-        public IEnumerable<Event> GetEvents();
+        public List<Event> GetEvents();
 
         public void AddUser(string name, string surname, string email);
         public void RemoveUser(Guid guid);

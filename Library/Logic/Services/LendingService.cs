@@ -8,7 +8,7 @@ using Library.Data;
 
 namespace Library.Logic.Services
 {
-    internal class LendingService
+    public class LendingService
     {
         private Repository repo;
 
@@ -16,9 +16,6 @@ namespace Library.Logic.Services
         {
             this.repo = repository;
         }
-
-        public void BorrowBook(Guid bookGuid, Guid userGuid) => repo.BorrowBook(bookGuid, userGuid);
-        public void ReturnBook(Guid bookGuid, Guid userGuid) => repo.ReturnBook(bookGuid, userGuid);
 
         public void GiveFine(Guid userGuid, double amount) => repo.GiveFine(userGuid, amount);
         public void PayFine(Guid userGuid, double amount) => repo.PayFine(userGuid, amount);

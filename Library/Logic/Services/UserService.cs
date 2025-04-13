@@ -5,10 +5,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Library.Data;
+using Library.Data.Objects;
 
 namespace Library.Logic.Services
 {
-    internal class UserService
+    public class UserService
     {
         private Repository repo;
 
@@ -17,7 +18,7 @@ namespace Library.Logic.Services
             this.repo = repository;
         }
 
-        public void AddUser(string name, string surname, string email) => repo.AddUser(name, surname, email);
+        public void AddUser(User user) => repo.AddUser(user);
         public void RemoveUser(Guid guid) => repo.RemoveUser(guid);
     }
 }

@@ -8,7 +8,7 @@ namespace Library.Data.Objects
 {
     public class LibraryState
     {
-        public List<Book> Books { get; private set; } = new List<Book>();
-        public List<User> Users { get; private set; } = new List<User>();
+        public List<Book> Books { get; set; } = new List<Book>();
+        public List<User> Users { get; set; } = new List<User>();
     }
 }
