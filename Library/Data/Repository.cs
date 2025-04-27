@@ -10,27 +10,21 @@ using Library.Data.Objects.Events;
 
 namespace Library.Data
 {
-    public class Repository: IRepository
+    internal class Repository: IRepository
     {
-        private LibraryState libraryState = new();
-        private List<Event> events = new();
+        private ILibraryState libraryState;
+        private List<IEvent> events = new();
 
 
-        public List<User> GetAllUsers() => libraryState.Users;
-        public List<Book> GetCatalog() => libraryState.Books;
-        public LibraryState GetLibraryState() => libraryState;
-        public List<Event> GetEvents() => events;
+        public List<IUser> GetAllUsers() => libraryState.Users;
+        public List<IBook> GetCatalog() => libraryState.Books;
+        public ILibraryState GetLibraryState() => libraryState;
+        public List<IEvent> GetEvents() => events;
 
-        public void AddUser(string name, string surname, string email)
-        {
-            User user = new(name, surname, email);
-            AddUser(user);
-            
-        }
-        public void AddUser(User user)
+        public void AddUser(IUser user)
         { 
             libraryState.Users.Add(user);
-            events.Add(new EventAddUser(user.GUID, DateTime.Now));
+            events.Add(new IEventAddUser(user.GUID, DateTime.Now));
         }
 
         public void RemoveUser(Guid guid)

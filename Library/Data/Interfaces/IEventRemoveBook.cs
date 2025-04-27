@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Interfaces
 {
-    public interface IEventReturnBook: IEvent
+    public interface IEventRemoveBook: IEvent
     {
         Guid BookGuid { get; }
-        Guid UserGuid { get; }
     }
 }

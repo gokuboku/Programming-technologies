@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Interfaces
 {
-    internal interface IUser
+    public interface IUser
     {
+        public string Name { get;}
+        public string Surname { get; }
+        public string Email { get; }
+        public Guid GUID { get; }
+        public double FineAmount { get; }
+
+        public void SetFineAmount(double amount);
     }
 }

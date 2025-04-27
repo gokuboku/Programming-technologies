@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Interfaces
 {
-    internal interface IEventRemoveUser
+    public interface IEventRemoveUser: IEvent
     {
+        Guid UserGuid { get; }
     }
 }

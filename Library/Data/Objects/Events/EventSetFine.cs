@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Data.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +7,24 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Objects.Events
 {
-    public class EventSetFine : Event
+    internal class EventSetFine : IEventSetFine
     {
-        public EventSetFine(string action, Guid userId, DateTime date, double fineAmount): base(action, date)
+        public Guid UserGuid { get; }
+
+        public double FineAmount { get; }
+
+        public Guid Guid { get; }
+
+        public string Action { get; }
+
+        public DateTime Date { get; }
+        public EventSetFine(Guid userGuid, double fineAmount, Guid guid, DateTime date, string action)
         {
-            UserId = userId;
+            UserGuid = userGuid;
             FineAmount = fineAmount;
+            Guid = guid;
+            Action = action;
+            Date = date;
         }
-        public Guid UserId { get; private set; }
-        public double FineAmount { get; private set; }
     }
 }

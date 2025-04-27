@@ -7,15 +7,17 @@ using Library.Data.Interfaces;
 
 namespace Library.Data.Objects.Events
 {
-    internal class EventAddBook: IEvent
+    internal class EventAddBook: IEventAddBook
     {
-        public Guid Guid { get; set; }
-        public string Action { get; set; }
-        public DateTime Date { get; set; }
-        public EventAddBook(Guid guid, string action, DateTime date)
+        public Guid Guid { get;}
+        public Guid BookGuid { get;}
+        public string Action { get;} = "AddBook";
+        public DateTime Date { get;}
+
+        public EventAddBook(Guid guid, Guid bookGuid, DateTime date)
         {
             Guid = guid;
-            Action = action;
+            BookGuid = bookGuid;
             Date = date;
         }
     }

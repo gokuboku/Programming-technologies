@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Interfaces
 {
-    public interface IEventReturnBook: IEvent
+    public interface IEvent
     {
-        Guid BookGuid { get; }
-        Guid UserGuid { get; }
+        public Guid Guid { get;}
+        public string Action { get; }
+        public DateTime Date { get; }
     }
 }

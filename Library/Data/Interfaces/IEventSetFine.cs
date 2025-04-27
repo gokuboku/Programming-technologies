@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Interfaces
 {
-    internal interface IEventSetFine
+    public interface IEventSetFine: IEvent
     {
+        Guid UserGuid { get; }
+        double FineAmount { get; }
     }
 }

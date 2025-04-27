@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Data.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Objects
 {
-    public class User
+    internal class User: IUser
     {
         public string Name { get; private set; }
         public string Surname { get; private set; }

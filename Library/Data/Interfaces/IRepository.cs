@@ -11,21 +11,21 @@ namespace Library.Data.Interfaces
 {
     public interface IRepository
     {
-        public List<User> GetAllUsers();
-        public List<Book> GetCatalog();
-        public LibraryState GetLibraryState();
-        public List<Event> GetEvents();
+        public List<IUser> GetAllUsers();
+        public List<IBook> GetCatalog();
+        public ILibraryState GetLibraryState();
+        public List<IEvent> GetEvents();
 
-        public void AddUser(string name, string surname, string email);
-        public void RemoveUser(Guid guid);
+        public void AddUser(IUser user);
+        public void RemoveUser(IUser user);
 
-        public void AddBook(string title, string author, string genre, int year, string ISBN, int pageCount);
-        public void RemoveBook(Guid guid);
+        public void AddBook(IBook book);
+        public void RemoveBook(IBook book);
 
-        public void BorrowBook(Guid bookGuid, Guid userGuid);
-        public void ReturnBook(Guid bookGuid, Guid userGuid);
+        public void BorrowBook(IBook book, IUser user);
+        public void ReturnBook(IBook book, IUser user);
 
-        public void GiveFine(Guid userGuid, double amount);
-        public void PayFine(Guid userGuid, double amount);
+        public void GiveFine(IUser user, double amount);
+        public void PayFine(IUser user, double amount);
     }
 }

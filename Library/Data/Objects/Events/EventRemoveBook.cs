@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Data.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Objects.Events
 {
-    internal class EventRemoveBook: Event
+    internal class EventRemoveBook: IEventRemoveBook
     {
-        public EventRemoveBook(Guid bookId, DateTime date) : base("Book_removed", date)
+        public Guid BookGuid { get; }
+
+        public Guid Guid { get; }
+        public string Action { get; } = "RemoveBook";
+
+        public DateTime Date { get; }
+
+        public EventRemoveBook(Guid bookGuid, Guid guid, DateTime date)
         {
-            BookId = bookId;
+            BookGuid = bookGuid;
+            Guid = guid;
+            Date = date;
         }
-        public Guid BookId { get; private set; }
     }
 }

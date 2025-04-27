@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Data.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Interfaces
 {
-    internal interface ILibraryState
+    public interface ILibraryState
     {
+        public List<IBook> Books { get; }
+        public List<IUser> Users { get; }
     }
 }
