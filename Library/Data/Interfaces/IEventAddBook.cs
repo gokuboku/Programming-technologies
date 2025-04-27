@@ -8,7 +8,6 @@ namespace Library.Data.Interfaces
 {
     public interface IEventAddBook: IEvent
     {
-
         Guid BookGuid { get; }
     }
 }

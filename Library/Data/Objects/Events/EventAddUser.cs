@@ -15,14 +15,14 @@ namespace Library.Data.Objects.Events
 
         public Guid Guid { get; }
 
-        public string Action { get; } = "AddUser";
+        public string Action { get; }
 
-        public EventAddUser(Guid userGuid, DateTime eventDate, Guid guid, string action)
+        public EventAddUser(Guid guid, DateTime eventDate, Guid userGuid)
         {
-            this.UserGuid = userGuid;
-            this.Date = eventDate;
-            this.Guid = guid;
-            this.Action = action;
+            UserGuid = userGuid;
+            Date = eventDate;
+            Guid = guid;
+            Action = "AddUser";
         }
     }
 }

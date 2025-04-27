@@ -9,7 +9,7 @@ namespace Library.Data.Objects
 {
     internal class LibraryState: ILibraryState
     {
-        public List<IBook> Books { get; set; } = new List<IBook>();
-        public List<IUser> Users { get; set; } = new List<IUser>();
+        public List<IBook> Books { get; set; } = new();
+        public List<IUser> Users { get; set; } = new();
     }
 }

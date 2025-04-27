@@ -12,9 +12,8 @@ namespace Library.Data
 {
     internal class Repository: IRepository
     {
-        private ILibraryState libraryState;
+        private ILibraryState libraryState = new LibraryState();
         private List<IEvent> events = new();
-
 
         public List<IUser> GetAllUsers() => libraryState.Users;
         public List<IBook> GetCatalog() => libraryState.Books;
@@ -22,83 +21,48 @@ namespace Library.Data
         public List<IEvent> GetEvents() => events;
 
         public void AddUser(IUser user)
-        { 
+        {
             libraryState.Users.Add(user);
-            events.Add(new IEventAddUser(user.GUID, DateTime.Now));
+            events.Add(new EventAddUser(Guid.NewGuid(), DateTime.Now, user.Guid));
         }
 
-        public void RemoveUser(Guid guid)
+        public void RemoveUser(IUser user)
         {
-            var user = libraryState.Users.FirstOrDefault(u => u.GUID == guid);
-            if (user != null)
-            {
-                libraryState.Users.Remove(user);
-                events.Add(new EventRemoveUser(user.GUID, DateTime.Now));
-            }
+            libraryState.Users.Remove(user);
+            events.Add(new EventRemoveUser(Guid.NewGuid(), DateTime.Now, user.Guid));
         }
 
-        public void AddBook(string title, string author, string genre, int year, string ISBN, int pageCount)
-        {
-            Book book = new(title, author, genre, year, ISBN, pageCount);
-            AddBook(book);
-        }
-
-        public void AddBook(Book book)
+        public void AddBook(IBook book)
         {
             libraryState.Books.Add(book);
-            events.Add(new EventAddBook(book.Guid, DateTime.Now));
+            events.Add(new EventAddBook(Guid.NewGuid(), DateTime.Now, book.Guid));
         }
 
-        public void RemoveBook(Guid guid)
+        public void RemoveBook(IBook book)
         {
-            var book = libraryState.Books.Find(b => b.Guid == guid);
-            if (book != null)
-            {
-                var temp = libraryState.Books.Remove(book);
-                events.Add(new EventRemoveBook(book.Guid, DateTime.Now));
-            }
+            libraryState.Books.Remove(book);
+            events.Add(new EventRemoveBook(Guid.NewGuid(), DateTime.Now, book.Guid));
         }
 
-        public void BorrowBook(Guid bookGuid, Guid userGuid)
+        public void BorrowBook(IBook book, IUser user)
         {
-            var book = libraryState.Books.FirstOrDefault(b => b.Guid == bookGuid);
-            var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
-            if (book != null && user != null && book.IsAvailable)
+            if (book.IsAvailable)
             {
                 book.SetAvailability(false);
-                events.Add(new EventBorrowBook(book.Guid, user.GUID, DateTime.Now));
+                events.Add(new EventBorrowBook(Guid.NewGuid(), DateTime.Now, book.Guid, user.Guid));
             }
         }
 
-        public void ReturnBook(Guid bookGuid, Guid userGuid)
+        public void ReturnBook(IBook book, IUser user)
         {
-            var book = libraryState.Books.FirstOrDefault(b => b.Guid == bookGuid);
-            var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
-            if (book != null && user != null && !book.IsAvailable)
-            {
-                book.SetAvailability(true);
-                events.Add(new EventReturnBook(book.Guid, user.GUID, DateTime.Now));
-            }
+            book.SetAvailability(true);
+            events.Add(new EventReturnBook(Guid.NewGuid(), DateTime.Now, book.Guid, user.Guid));
         }
 
-        public void GiveFine(Guid userGuid, double amount)
+        public void SetFine(IUser user, double amount)
         {
-            var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
-            if (user != null)
-            {
-                user.SetFineAmount(user.FineAmount + amount);
-                events.Add(new EventSetFine("Fine_Given",user.GUID, DateTime.Now, amount));
-            }
-        }
-
-        public void PayFine(Guid userGuid, double amount)
-        {
-            var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
-            if (user != null)
-            {
-                user.SetFineAmount(user.FineAmount - amount);
-                events.Add(new EventSetFine("Fine_Paid", user.GUID, DateTime.Now, amount));
-            }
+            user.SetFineAmount(amount);
+            events.Add(new EventSetFine(Guid.NewGuid(), DateTime.Now, user.Guid, amount));
         }
     }
 }

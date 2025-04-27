@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Library.Data;
-using Library.Data.Objects;
+using Library.Data.Interfaces;
 
 namespace Library.Logic.Services
 {
@@ -13,13 +13,13 @@ namespace Library.Logic.Services
     {
         private Repository repo;
 
-        public BookService(Repository repository)
+        public BookService(IRepository repo)
         {
-            this.repo = repository;
+            repo = new Repository();
         }
 
-        public void AddBook(Book book) => repo.AddBook(book);
-        public void RemoveBook(Guid guid) => repo.RemoveBook(guid);
+        public void AddBook(IBook book) => repo.AddBook(book);
+        public void RemoveBook(IBook book) => repo.RemoveBook(book);
         public void BorrowBook(Guid bookGuid, Guid userGuid) => repo.BorrowBook(bookGuid, userGuid);
         public void ReturnBook(Guid bookGuid, Guid userGuid) => repo.ReturnBook(bookGuid, userGuid);
     }

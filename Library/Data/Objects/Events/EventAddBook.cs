@@ -11,14 +11,14 @@ namespace Library.Data.Objects.Events
     {
         public Guid Guid { get;}
         public Guid BookGuid { get;}
-        public string Action { get;} = "AddBook";
+        public string Action { get;}
         public DateTime Date { get;}
-
-        public EventAddBook(Guid guid, Guid bookGuid, DateTime date)
+        public EventAddBook(Guid guid, DateTime date, Guid bookGuid)
         {
             Guid = guid;
             BookGuid = bookGuid;
             Date = date;
+            Action = "AddBook";
         }
     }
 }

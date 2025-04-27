@@ -18,13 +18,13 @@ namespace Library.Data.Objects.Events
         public string Action { get; }
 
         public DateTime Date { get; }
-        public EventSetFine(Guid userGuid, double fineAmount, Guid guid, DateTime date, string action)
+        public EventSetFine(Guid guid, DateTime date, Guid userGuid, double fineAmount)
         {
             UserGuid = userGuid;
             FineAmount = fineAmount;
             Guid = guid;
-            Action = action;
             Date = date;
+            Action = "SetFine";
         }
     }
 }

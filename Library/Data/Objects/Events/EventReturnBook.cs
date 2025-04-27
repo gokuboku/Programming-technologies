@@ -15,16 +15,17 @@ namespace Library.Data.Objects.Events
 
         public Guid Guid { get; }
 
-        public string Action { get; } = "ReturnBook";
+        public string Action { get; }
 
         public DateTime Date { get; }
 
-        public EventReturnBook(Guid bookGuid, Guid userGuid, Guid guid, DateTime date)
+        public EventReturnBook(Guid guid, DateTime date, Guid bookGuid, Guid userGuid)
         {
             BookGuid = bookGuid;
             UserGuid = userGuid;
             Guid = guid;
             Date = date;
+            Action = "ReturnBook";
         }
     }
 }

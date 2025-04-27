@@ -12,19 +12,20 @@ namespace Library.Data.Objects
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public string Email { get; private set; }
-        public Guid GUID { get; private set; }
-        public double FineAmount { get; private set; } = 0.0;
+        public Guid Guid { get; private set; }
+        public double FineAmount { get; private set; }
         public User(string name, string surname, string email)
         {
-            this.Name = name;
-            this.Surname = surname;
-            this.GUID = Guid.NewGuid();
-            this.Email = email;
+            Name = name;
+            Surname = surname;
+            Guid = Guid.NewGuid();
+            Email = email;
+            FineAmount = 0.0;
         }
 
         public void SetFineAmount(double amount)
         {
-            this.FineAmount = amount;
+            FineAmount = amount;
         }
     }
 }

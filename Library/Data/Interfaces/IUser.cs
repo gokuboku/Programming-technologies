@@ -11,9 +11,8 @@ namespace Library.Data.Interfaces
         public string Name { get;}
         public string Surname { get; }
         public string Email { get; }
-        public Guid GUID { get; }
+        public Guid Guid { get; }
         public double FineAmount { get; }
-
         public void SetFineAmount(double amount);
     }
 }
