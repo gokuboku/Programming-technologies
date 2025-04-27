@@ -22,7 +22,7 @@ namespace LibraryTest
             BookService bs = new BookService(repo);
             repo.AddUser(user1);
             repo.AddBook(book1);
-            bs.BorrowBook(book1.GUID, user1.GUID);
+            bs.BorrowBook(book1.Guid, user1.GUID);
             var cat = repo.GetCatalog();
             var evs = repo.GetEvents();
             bool flag = (!cat[0].IsAvailable) && (evs.Last().Action == "Book_borrowed");
@@ -36,8 +36,8 @@ namespace LibraryTest
             BookService bs = new BookService(repo);
             repo.AddUser(user1);
             repo.AddBook(book1);
-            bs.BorrowBook(book1.GUID, user1.GUID);
-            bs.ReturnBook(book1.GUID, user1.GUID);
+            bs.BorrowBook(book1.Guid, user1.GUID);
+            bs.ReturnBook(book1.Guid, user1.GUID);
             var cat = repo.GetCatalog();
             var evs = repo.GetEvents();
             bool flag = (cat[0].IsAvailable) && (evs.Last().Action == "Book_returned");

@@ -3,34 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.Data.Interfaces;
 
 namespace Library.Data.Objects
 {
-    public class Book
+    internal class Book : IBook
     {
-        public string ISBN { get; private set; }
-        public string Title { get; private set; }
-        public string Author { get; private set; }
-        public string Genre { get; private set; }
-        public int Year { get; private set; }
-        public Guid GUID { get; private set; }
-        public int Pages { get; private set; }
-        public bool IsAvailable { get; private set; } = true;
-
-        public Book(string title, string author, string genre, int year, string iSBN, int pages)
+        public string Isbn { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string Genre { get; set; }
+        public int Year { get; set; }
+        public Guid Guid { get; set; }
+        public int Pages { get; set; }
+        public bool IsAvailable { get; set; }
+        public Book(string title, string author, string genre, int year, string isbn, int pages)
         {
-            this.Title = title;
-            this.Author = author;
-            this.Genre = genre;
-            this.Year = year;
-            this.GUID = Guid.NewGuid();
-            ISBN = iSBN;
+            Title = title;
+            Author = author;
+            Genre = genre;
+            Year = year;
+            Guid = Guid.NewGuid();
+            Isbn = isbn;
             Pages = pages;
         }
-
         public void SetAvailability(bool isAvailable)
         {
-            this.IsAvailable = isAvailable;
+            IsAvailable = isAvailable;
         }
     }
 }

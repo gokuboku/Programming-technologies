@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Interfaces
 {
-    internal interface IBook
+    public interface IBook
     {
+        public string Isbn { get; }
+        public string Title { get; }
+        public string Author { get; }
+        public string Genre { get; }
+        public int Year { get; }
+        public Guid Guid { get; }
+        public int Pages { get; }
+        public bool IsAvailable { get; }
+        public void SetAvailability(bool isAvailable);
     }
 }

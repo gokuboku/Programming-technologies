@@ -64,8 +64,8 @@ namespace LibraryTest
             Repository repo = new Repository();
             repo.AddBook(book1);
             repo.AddBook(book2);
-            repo.RemoveBook(book1.GUID);
-            Assert.IsNull(repo.GetCatalog().Find(b => b.GUID == book1.GUID));
+            repo.RemoveBook(book1.Guid);
+            Assert.IsNull(repo.GetCatalog().Find(b => b.Guid == book1.Guid));
         }
     }
 }

@@ -52,38 +52,38 @@ namespace Library.Data
         public void AddBook(Book book)
         {
             libraryState.Books.Add(book);
-            events.Add(new EventAddBook(book.GUID, DateTime.Now));
+            events.Add(new EventAddBook(book.Guid, DateTime.Now));
         }
 
         public void RemoveBook(Guid guid)
         {
-            var book = libraryState.Books.Find(b => b.GUID == guid);
+            var book = libraryState.Books.Find(b => b.Guid == guid);
             if (book != null)
             {
                 var temp = libraryState.Books.Remove(book);
-                events.Add(new EventRemoveBook(book.GUID, DateTime.Now));
+                events.Add(new EventRemoveBook(book.Guid, DateTime.Now));
             }
         }
 
         public void BorrowBook(Guid bookGuid, Guid userGuid)
         {
-            var book = libraryState.Books.FirstOrDefault(b => b.GUID == bookGuid);
+            var book = libraryState.Books.FirstOrDefault(b => b.Guid == bookGuid);
             var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
             if (book != null && user != null && book.IsAvailable)
             {
                 book.SetAvailability(false);
-                events.Add(new EventBorrowBook(book.GUID, user.GUID, DateTime.Now));
+                events.Add(new EventBorrowBook(book.Guid, user.GUID, DateTime.Now));
             }
         }
 
         public void ReturnBook(Guid bookGuid, Guid userGuid)
         {
-            var book = libraryState.Books.FirstOrDefault(b => b.GUID == bookGuid);
+            var book = libraryState.Books.FirstOrDefault(b => b.Guid == bookGuid);
             var user = libraryState.Users.FirstOrDefault(u => u.GUID == userGuid);
             if (book != null && user != null && !book.IsAvailable)
             {
                 book.SetAvailability(true);
-                events.Add(new EventReturnBook(book.GUID, user.GUID, DateTime.Now));
+                events.Add(new EventReturnBook(book.Guid, user.GUID, DateTime.Now));
             }
         }
 
