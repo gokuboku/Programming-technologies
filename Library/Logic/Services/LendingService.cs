@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Library.Data;
+using Library.Data.Interfaces;
 
 namespace Library.Logic.Services
 {
@@ -14,10 +15,9 @@ namespace Library.Logic.Services
 
         public LendingService(Repository repository)
         {
-            this.repo = repository;
+            repo = repository;
         }
 
-        public void GiveFine(Guid userGuid, double amount) => repo.GiveFine(userGuid, amount);
-        public void PayFine(Guid userGuid, double amount) => repo.PayFine(userGuid, amount);
+        public void SetFine(IUser user, double amount) => repo.SetFine(user, amount);
     }
 }

@@ -26,6 +26,7 @@ namespace Library.Data.Objects
             Guid = Guid.NewGuid();
             Isbn = isbn;
             Pages = pages;
+            IsAvailable = true;
         }
         public void SetAvailability(bool isAvailable)
         {

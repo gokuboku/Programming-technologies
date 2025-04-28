@@ -13,14 +13,14 @@ namespace Library.Logic.Services
     {
         private Repository repo;
 
-        public BookService(IRepository repo)
+        public BookService(Repository repository)
         {
-            repo = new Repository();
+            this.repo = repository;
         }
 
         public void AddBook(IBook book) => repo.AddBook(book);
         public void RemoveBook(IBook book) => repo.RemoveBook(book);
-        public void BorrowBook(Guid bookGuid, Guid userGuid) => repo.BorrowBook(bookGuid, userGuid);
-        public void ReturnBook(Guid bookGuid, Guid userGuid) => repo.ReturnBook(bookGuid, userGuid);
+        public void BorrowBook(IBook book, IUser user) => repo.BorrowBook(book, user);
+        public void ReturnBook(IBook book, IUser user) => repo.ReturnBook(book, user);
     }
 }

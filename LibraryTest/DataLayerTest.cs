@@ -55,17 +55,19 @@ namespace LibraryTest
         {
             Repository repo = new Repository();
             repo.AddUser(user1);
-            Assert.AreEqual(repo.GetEvents()[0].Action, "User_added");
+            Assert.AreEqual(repo.GetEvents()[0].Action, "AddUser");
         }
 
         [TestMethod]
-        public void RemoveBookIsSuccessful() 
+        public void RemoveBookIsSuccessful()
         {
             Repository repo = new Repository();
             repo.AddBook(book1);
             repo.AddBook(book2);
-            repo.RemoveBook(book1.Guid);
-            Assert.IsNull(repo.GetCatalog().Find(b => b.Guid == book1.Guid));
+            var books = repo.GetCatalog();
+            var book = books[0];
+            repo.RemoveBook(book);
+            Assert.IsFalse(repo.GetCatalog().Contains(book));
         }
     }
 }

@@ -22,7 +22,7 @@ namespace LibraryTest
             ls.AddUser(user1);
             var usr = repo.GetAllUsers();
             var evs = repo.GetEvents();
-            bool flag = (usr[0].Name == user1.Name) && (evs.Last().Action == "User_added");
+            bool flag = (usr[0].Name == user1.Name) && (evs.Last().Action == "AddUser");
             Assert.IsTrue(flag);
         }
     }

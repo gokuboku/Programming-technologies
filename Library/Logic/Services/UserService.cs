@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Library.Data;
+using Library.Data.Interfaces;
 using Library.Data.Objects;
 
 namespace Library.Logic.Services
@@ -18,7 +19,7 @@ namespace Library.Logic.Services
             this.repo = repository;
         }
 
-        public void AddUser(User user) => repo.AddUser(user);
-        public void RemoveUser(Guid guid) => repo.RemoveUser(guid);
+        public void AddUser(IUser user) => repo.AddUser(user);
+        public void RemoveUser(IUser user) => repo.RemoveUser(user);
     }
 }
