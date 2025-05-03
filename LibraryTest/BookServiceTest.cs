@@ -12,16 +12,12 @@ namespace LibraryTest
     [TestClass]
     public class BookServiceTest
     {
-        User user1 = new User("John", "Pork", "jpork@email.com");
-        Book book1 = new Book("1984", "George Orwell", "Dystopian", 1949, "978-0451524935", 328);
+        Repository repo = DataGenerator.GenerateRepo();
 
         [TestMethod]
         public void BorrowBookWorksCorrectly()
         {
-            Repository repo = Repository.Create();
             BookService bs = new BookService(repo);
-            repo.AddUser(user1);
-            repo.AddBook(book1);
             var users = repo.GetAllUsers();
             var cat = repo.GetCatalog();
             var user = users[0];
@@ -35,10 +31,7 @@ namespace LibraryTest
         [TestMethod]
         public void ReturnBookWorksCorrectly()
         {
-            Repository repo = Repository.Create();
             BookService bs = new BookService(repo);
-            repo.AddUser(user1);
-            repo.AddBook(book1);
             var users = repo.GetAllUsers();
             var cat = repo.GetCatalog();
             var user = users[0];

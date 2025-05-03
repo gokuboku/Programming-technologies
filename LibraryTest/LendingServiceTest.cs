@@ -12,15 +12,12 @@ namespace LibraryTest
     [TestClass]
     public class LendingServiceTest
     {
-        User user1 = new User("John", "Pork", "jpork@email.com");
-        Book book1 = new Book("1984", "George Orwell", "Dystopian", 1949, "978-0451524935", 328);
+        Repository repo = DataGenerator.GenerateRepo();
 
         [TestMethod]
         public void SetFineWorksCorrectly()
         {
-            Repository repo = Repository.Create();
             LendingService ls = new LendingService(repo);
-            repo.AddUser(user1);
             var users = repo.GetAllUsers();
             var usr = users.Last();
             ls.SetFine(usr, 100.0);
