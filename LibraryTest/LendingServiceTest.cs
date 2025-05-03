@@ -18,7 +18,7 @@ namespace LibraryTest
         [TestMethod]
         public void SetFineWorksCorrectly()
         {
-            Repository repo = new Repository();
+            Repository repo = Repository.Create();
             LendingService ls = new LendingService(repo);
             repo.AddUser(user1);
             var users = repo.GetAllUsers();

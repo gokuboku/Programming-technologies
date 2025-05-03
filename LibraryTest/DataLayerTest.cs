@@ -23,7 +23,7 @@ namespace LibraryTest
         [TestMethod]
         public void GetAllUsersReturnsCorrectValue()
         {
-            Repository repo = new Repository();
+            Repository repo = Repository.Create();
             repo.AddUser(user1);
             repo.AddUser(user2);
             Assert.AreEqual(user2.Name, repo.GetAllUsers()[1].Name);
@@ -32,7 +32,7 @@ namespace LibraryTest
         [TestMethod]
         public void GetCatalogReturnsCorrectValue()
         {
-            Repository repo = new Repository();
+            Repository repo = Repository.Create();
             repo.AddBook(book1);
             repo.AddBook(book2);
             Assert.AreEqual(book1.Title, repo.GetCatalog()[0].Title);
@@ -41,7 +41,7 @@ namespace LibraryTest
         [TestMethod]
         public void GetLibraryStateReturnsCorrectValue()
         {
-            Repository repo = new Repository();
+            Repository repo = Repository.Create();
             repo.AddUser(user1);
             repo.AddBook(book1);
             var state = repo.GetLibraryState();
@@ -53,7 +53,7 @@ namespace LibraryTest
         [TestMethod]
         public void GetEventsRetursCorrectValue()
         {
-            Repository repo = new Repository();
+            Repository repo = Repository.Create();
             repo.AddUser(user1);
             Assert.AreEqual(repo.GetEvents()[0].Action, "AddUser");
         }
@@ -61,7 +61,7 @@ namespace LibraryTest
         [TestMethod]
         public void RemoveBookIsSuccessful()
         {
-            Repository repo = new Repository();
+            Repository repo = Repository.Create();
             repo.AddBook(book1);
             repo.AddBook(book2);
             var books = repo.GetCatalog();

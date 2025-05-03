@@ -1,17 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Library.Data.Interfaces;
+﻿using Library.Data.Interfaces;
 using Library.Data.Objects;
 using Library.Data.Objects.Events;
 
 namespace Library.Data
 {
-    public class Repository
+    public abstract class Repository
     {
+        private class CRepository : Repository
+        {
+            public CRepository(Repository repo)
+            {
+                _libraryState = repo._libraryState;
+                _events = repo._events;
+            }
+            public CRepository() { }
+        }
+
+        public static Repository Create(Repository? repo = null)
+        {
+            if (repo != null)
+            {
+                return new CRepository(repo);
+            }
+            return new CRepository();
+        }
+
         private ILibraryState _libraryState = new LibraryState();
         private List<IEvent> _events = [];
 

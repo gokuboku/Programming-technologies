@@ -17,7 +17,7 @@ namespace LibraryTest
         [TestMethod]
         public void AddUserWorksCorrectly()
         {
-            Repository repo = new Repository();
+            Repository repo = Repository.Create();
             UserService ls = new UserService(repo);
             ls.AddUser(user1);
             var usr = repo.GetAllUsers();

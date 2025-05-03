@@ -18,7 +18,7 @@ namespace LibraryTest
         [TestMethod]
         public void BorrowBookWorksCorrectly()
         {
-            Repository repo = new Repository();
+            Repository repo = Repository.Create();
             BookService bs = new BookService(repo);
             repo.AddUser(user1);
             repo.AddBook(book1);
@@ -35,7 +35,7 @@ namespace LibraryTest
         [TestMethod]
         public void ReturnBookWorksCorrectly()
         {
-            Repository repo = new Repository();
+            Repository repo = Repository.Create();
             BookService bs = new BookService(repo);
             repo.AddUser(user1);
             repo.AddBook(book1);
