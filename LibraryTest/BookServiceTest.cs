@@ -12,7 +12,7 @@ namespace LibraryTest
     [TestClass]
     public class BookServiceTest
     {
-        Repository repo = DataGenerator.GenerateRepo();
+        Repository repo = PredefinedDataGenerator.GeneratePredefinedRepo();
 
         [TestMethod]
         public void BorrowBookWorksCorrectly()

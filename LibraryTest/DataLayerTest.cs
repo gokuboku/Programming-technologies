@@ -19,6 +19,24 @@ namespace LibraryTest
         Book book2 = new Book("To Kill a Mockingbird", "Harper Lee", "Classic", 1960, "978-0061120084", 336);
         Book book3 = new Book("The Hobbit", "J.R.R. Tolkien", "Fantasy", 1937, "978-0547928227", 310);
 
+        [TestMethod]
+        public void RandomDataGeneratorIsValid()
+        {
+            Repository repo = RandomDataGenerator.GenerateRandomRepo(10,10);
+            var users = repo.GetAllUsers();
+            var books = repo.GetCatalog();
+            Assert.IsTrue(users.Count == 10 && books.Count == 10);
+        }
+
+        [TestMethod]
+        public void PredefinedDataGeneratorIsValid()
+        {
+            Repository repo = PredefinedDataGenerator.GeneratePredefinedRepo();
+            var users = repo.GetAllUsers();
+            var books = repo.GetCatalog();
+            Assert.IsTrue(users.Count == 3 && books.Count == 3);
+        }
+
 
         [TestMethod]
         public void GetAllUsersReturnsCorrectValue()

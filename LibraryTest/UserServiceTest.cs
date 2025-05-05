@@ -12,7 +12,7 @@ namespace LibraryTest
     [TestClass]
     public class UserServiceTest
     {
-        Repository repo = DataGenerator.GenerateRepo();
+        Repository repo = PredefinedDataGenerator.GeneratePredefinedRepo();
         User user1 = new User("Jonas", "Kiauliena", "jkiaul@email.com");
 
         [TestMethod]

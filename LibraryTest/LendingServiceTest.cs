@@ -12,7 +12,7 @@ namespace LibraryTest
     [TestClass]
     public class LendingServiceTest
     {
-        Repository repo = DataGenerator.GenerateRepo();
+        Repository repo = PredefinedDataGenerator.GeneratePredefinedRepo();
 
         [TestMethod]
         public void SetFineWorksCorrectly()
