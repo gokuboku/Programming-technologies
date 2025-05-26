@@ -12,7 +12,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryTest", "LibraryTest\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "Library\Library.csproj", "{ACB0A08D-6903-438D-83C6-A3DC68A87474}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{12B2DB03-F208-4464-9EE5-5E921E4B2E52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{12B2DB03-F208-4464-9EE5-5E921E4B2E52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{16D90A59-0373-4399-930D-3BEF4185D8DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{12B2DB03-F208-4464-9EE5-5E921E4B2E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12B2DB03-F208-4464-9EE5-5E921E4B2E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12B2DB03-F208-4464-9EE5-5E921E4B2E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16D90A59-0373-4399-930D-3BEF4185D8DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16D90A59-0373-4399-930D-3BEF4185D8DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16D90A59-0373-4399-930D-3BEF4185D8DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16D90A59-0373-4399-930D-3BEF4185D8DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
