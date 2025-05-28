@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\DataContext.dbml">
+    <None Update="LibraryDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataContext.designer.cs</LastGenOutput>
+      <LastGenOutput>LibraryDataContext.designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -23,10 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Data\DataContext.designer.cs">
+    <Compile Update="LibraryDataContext.designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>DataContext.dbml</DependentUpon>
+      <DependentUpon>LibraryDataContext.dbml</DependentUpon>
     </Compile>
   </ItemGroup>
 

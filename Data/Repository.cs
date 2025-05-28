@@ -1,33 +1,62 @@
-﻿using Library.Data.Interfaces;
+﻿using Data;
+using Library.Data.Interfaces;
 using Library.Data.Objects;
 using Library.Data.Objects.Events;
+using System.Drawing;
 
 namespace Library.Data
 {
     public abstract class Repository
     {
+        protected LibraryDataContext context;
+
         private class CRepository : Repository
         {
-            public CRepository(Repository repo)
+            public CRepository(string connectionString)
             {
-                _libraryState = repo._libraryState;
-                _events = repo._events;
+                context = new LibraryDataContext(connectionString);
             }
-            public CRepository() { }
+            public CRepository() 
+            { 
+            }
         }
 
-        public static Repository Create(Repository? repo = null)
+        public static Repository Create(string? connectionString = null)
         {
-            if (repo != null)
+            if (connectionString != null)
             {
-                return new CRepository(repo);
+                return new CRepository(connectionString);
             }
             return new CRepository();
         }
 
-        private ILibraryState _libraryState = new LibraryState();
-        private List<IEvent> _events = [];
+        private IBook DbToObject(book book)
+        {
+            if (book == null) return null;
+            return new Book(book.Title, book.Author, book.Genre, book.PublishedDate, book.ISBN, book.Pages);
+        }
 
+        public void AddBook(string Title, string Author, string Genre, DateTime PublishedDate, string ISBN, int Pages)
+        {
+            book Book = new book
+            {
+                Title = Title,
+                Author = Author,
+                Genre = Genre,
+                PublishedDate = PublishedDate,
+                ISBN = ISBN,
+                Pages = Pages
+            };
+            event bookEvent = new event
+            {
+                EventID = ,
+                EventDate = DateTime.Now,
+                BookGuid = Book.Guid
+            };
+            context.books.InsertOnSubmit(Book);
+            _events.Add(new EventAddBook(Guid.NewGuid(), DateTime.Now, book.Guid));
+        }
+/*
         public List<IUser> GetAllUsers() => _libraryState.Users;
         public List<IBook> GetCatalog() => _libraryState.Books;
         public ILibraryState GetLibraryState() => _libraryState;
@@ -43,12 +72,6 @@ namespace Library.Data
         {
             _libraryState.Users.Remove(user);
             _events.Add(new EventRemoveUser(Guid.NewGuid(), DateTime.Now, user.Guid));
-        }
-
-        public void AddBook(IBook book)
-        {
-            _libraryState.Books.Add(book);
-            _events.Add(new EventAddBook(Guid.NewGuid(), DateTime.Now, book.Guid));
         }
 
         public void RemoveBook(IBook book)
