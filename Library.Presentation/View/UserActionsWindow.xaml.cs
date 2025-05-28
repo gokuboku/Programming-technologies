@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Presentation
+namespace Library.Presentation.View
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for UserActionsWindow.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class UserActionsWindow : Window
     {
-        public Window1()
+        public UserActionsWindow()
         {
             InitializeComponent();
         }

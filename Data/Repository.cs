@@ -36,26 +36,26 @@ namespace Library.Data
             return new Book(book.Title, book.Author, book.Genre, book.PublishedDate, book.ISBN, book.Pages);
         }
 
-        public void AddBook(string Title, string Author, string Genre, DateTime PublishedDate, string ISBN, int Pages)
-        {
-            book Book = new book
-            {
-                Title = Title,
-                Author = Author,
-                Genre = Genre,
-                PublishedDate = PublishedDate,
-                ISBN = ISBN,
-                Pages = Pages
-            };
-            event bookEvent = new event
-            {
-                EventID = ,
-                EventDate = DateTime.Now,
-                BookGuid = Book.Guid
-            };
-            context.books.InsertOnSubmit(Book);
-            _events.Add(new EventAddBook(Guid.NewGuid(), DateTime.Now, book.Guid));
-        }
+        //public void AddBook(string Title, string Author, string Genre, DateTime PublishedDate, string ISBN, int Pages)
+        //{
+        //    book Book = new book
+        //    {
+        //        Title = Title,
+        //        Author = Author,
+        //        Genre = Genre,
+        //        PublishedDate = PublishedDate,
+        //        ISBN = ISBN,
+        //        Pages = Pages
+        //    };
+        //    event bookEvent = new event
+        //    {
+        //        EventID = ,
+        //        EventDate = DateTime.Now,
+        //        BookGuid = Book.Guid
+        //    };
+        //    context.books.InsertOnSubmit(Book);
+        //    _events.Add(new EventAddBook(Guid.NewGuid(), DateTime.Now, book.Guid));
+        //}
 /*
         public List<IUser> GetAllUsers() => _libraryState.Users;
         public List<IBook> GetCatalog() => _libraryState.Books;
@@ -99,7 +99,7 @@ namespace Library.Data
         {
             user.SetFineAmount(amount);
             _events.Add(new EventSetFine(Guid.NewGuid(), DateTime.Now, user.Guid, amount));
-        }
+        }*/
     }
 }
 
