@@ -11,6 +11,7 @@ namespace Library.Presentation
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            
             var mainWindowViewModel = new ViewModel.MainWindowViewModel();
             var mainWindow = new MainWindow(mainWindowViewModel);
             mainWindow.Show();

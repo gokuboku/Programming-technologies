@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.Presentation.Model
 {
-    class User : IUser
+    internal class User : IUser
     {
         public string Name { get; set; }
 
