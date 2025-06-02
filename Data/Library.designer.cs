@@ -596,7 +596,7 @@ namespace Data
 		
 		private bool _IsAvailable;
 		
-		private System.Nullable<System.Guid> _OwnerId;
+		private System.Guid _OwnerId;
 		
 		private EntitySet<@event> _events;
 		
@@ -622,7 +622,7 @@ namespace Data
     partial void OnPagesChanged();
     partial void OnIsAvailableChanging(bool value);
     partial void OnIsAvailableChanged();
-    partial void OnOwnerIdChanging(System.Nullable<System.Guid> value);
+    partial void OnOwnerIdChanging(System.Guid value);
     partial void OnOwnerIdChanged();
     #endregion
 		
@@ -793,8 +793,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> OwnerId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid OwnerId
 		{
 			get
 			{
@@ -857,7 +857,7 @@ namespace Data
 					}
 					else
 					{
-						this._OwnerId = default(Nullable<System.Guid>);
+						this._OwnerId = default(System.Guid);
 					}
 					this.SendPropertyChanged("user");
 				}

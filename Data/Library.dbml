@@ -32,7 +32,7 @@
       <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Pages" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IsAvailable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="OwnerId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="OwnerId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Association Name="book_event" Member="events" ThisKey="GUID" OtherKey="BookGuid" Type="event" />
       <Association Name="user_book" Member="user" ThisKey="OwnerId" OtherKey="Guid" Type="user" IsForeignKey="true" />
     </Type>

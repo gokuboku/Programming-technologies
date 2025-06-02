@@ -62,7 +62,7 @@ namespace LibraryTest
             repo.AddUser(user2);
             Assert.AreEqual(true, repo.ContainsUser(user1));
             Assert.AreEqual(true, repo.ContainsUser(user2));
-            Assert.AreEqual(2, repo.GetAllUsers().Count);
+            Assert.AreEqual(2, repo.GetAllUsers().Count());
             repo.TruncateAllData();
         }
 
@@ -77,7 +77,7 @@ namespace LibraryTest
 
             Assert.AreEqual(true, repo.ContainsBook(book1));
             Assert.AreEqual(true, repo.ContainsBook(book2));
-            Assert.AreEqual(2, repo.GetCatalog().Count);
+            Assert.AreEqual(2, repo.GetCatalog().Count());
             repo.TruncateAllData();
 
         }
@@ -90,8 +90,8 @@ namespace LibraryTest
             repo.AddUser(user1);
             repo.AddBook(book1);
             var state = repo.GetLibraryState();
-            bool flag = (state.Users[0].Name == user1.Name) &&
-                (state.Books[0].Title == book1.Title);
+            bool flag = (state.Users.ElementAt(0).Name == user1.Name) &&
+                (state.Books.ElementAt(0).Title == book1.Title);
             Assert.IsTrue(flag);
             repo.TruncateAllData();
         }
@@ -103,8 +103,7 @@ namespace LibraryTest
             Book book2 = PredefinedDataGenerator.GenerateBook2();
             repo.AddBook(book1);
             repo.AddBook(book2);
-            var books = repo.GetCatalog();
-            var book = books[0];
+            var book = repo.GetBook(book1.Guid);
             repo.RemoveBook(book);
             Assert.IsFalse(repo.ContainsBook(book));
             repo.TruncateAllData();

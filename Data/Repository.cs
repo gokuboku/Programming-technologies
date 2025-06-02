@@ -33,7 +33,7 @@ namespace Library.Data
         private IBook DbToObject(book book)
         {
             if (book == null) return null;
-            return new Book(book.Title, book.Author, book.Genre, book.PublishedDate, book.ISBN, book.Pages);
+            return new Book(book.Title, book.Author, book.Genre, book.PublishedDate, book.ISBN, book.Pages, book.GUID, book.OwnerId);
         }
 
         public void AddBook(string Title, string Author, string Genre, DateTime PublishedDate, string ISBN, int Pages)
@@ -69,7 +69,8 @@ namespace Library.Data
                 PublishedDate = book.Year,
                 GUID = book.Guid,
                 ISBN = book.Isbn,
-                Pages = book.Pages
+                Pages = book.Pages,
+                IsAvailable = true
             };
             @event bookEvent = new @event
             {
@@ -85,10 +86,10 @@ namespace Library.Data
 
         public void RemoveBook(IBook book)
         {
-            var dbBook = context.users.FirstOrDefault(u => u.Guid == book.Guid);
+            var dbBook = context.books.FirstOrDefault(u => u.GUID == book.Guid);
             if (dbBook != null)
             {
-                context.users.DeleteOnSubmit(dbBook);
+                context.books.DeleteOnSubmit(dbBook);
                 @event bookEvent = new @event
                 {
                     EventID = Guid.NewGuid(),
@@ -172,20 +173,25 @@ namespace Library.Data
         {
             var tempBook = context.books.FirstOrDefault(b => b.GUID == book.Guid);
             var tempUser = context.users.FirstOrDefault(u => u.Guid == user.Guid);
+
             if (tempBook != null && tempBook.IsAvailable && tempUser != null)
             {
                 tempBook.IsAvailable = false;
                 tempBook.OwnerId = tempUser.Guid;
+
                 @event borrowEvent = new @event
                 {
                     EventID = Guid.NewGuid(),
                     EventName = "BorrowBook",
                     EventDate = DateTime.Now,
-                    BookGuid = book.Guid,
-                    UserGuid = user.Guid
+                    BookGuid = tempBook.GUID,
+                    UserGuid = tempUser.Guid
                 };
+
                 context.events.InsertOnSubmit(borrowEvent);
-                context.SubmitChanges();
+
+                context.SubmitChanges(); 
+
                 book.SetAvailability(false);
                 book.SetOwner(user.Guid);
             }
@@ -214,7 +220,7 @@ namespace Library.Data
             }
         }
         
-        public List<IUser> GetNumberOfUsers(int number, int offset)
+        public IEnumerable<IUser> GetNumberOfUsers(int number, int offset)
         {
             return context.users
                 .Skip(offset)
@@ -224,9 +230,9 @@ namespace Library.Data
                 .ToList();
         }
 
-        public List<IBook> GetNumberOfBooks(int number, int offset)
+        public IEnumerable<IBook> GetNumberOfBooks(int number, int offset)
         {
-            List<book> users = (
+            IEnumerable<book> users = (
                 from u in context.books
                 select u).Skip(offset).Take(number).ToList();
 
@@ -235,17 +241,17 @@ namespace Library.Data
                 .ToList();
         }
 
-        public List<IUser> GetAllUsers()
+        public IEnumerable<IUser> GetAllUsers()
         {
 
-            List<user> temp = context.users.ToList();
+            IEnumerable<user> temp = context.users.ToList();
             return temp.Select(u => DbToObject(u)).ToList();
             
         }
-        public List<IBook> GetCatalog()
+        public IEnumerable<IBook> GetCatalog()
         {
 
-            List<book> books = context.books.ToList();
+            IEnumerable<book> books = context.books.ToList();
             return books.Select(b => DbToObject(b)).ToList();
 
         }
@@ -261,6 +267,18 @@ namespace Library.Data
             context.books.DeleteAllOnSubmit(context.books);
             context.SubmitChanges();
            
+        }
+
+        public IBook GetBook(Guid guid)
+        {
+            var book = context.books.FirstOrDefault(b => b.GUID == guid);
+            return DbToObject(book);
+        }
+
+        public IUser GetUser(Guid guid)
+        {
+            var user = context.users.FirstOrDefault(u => u.Guid == guid);
+            return DbToObject(user);
         }
 
         public bool ContainsUser(IUser user)

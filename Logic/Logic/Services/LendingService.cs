@@ -7,9 +7,14 @@ namespace Library.Logic.Services
     {
         private Repository repo;
 
-        public LendingService(Repository repository)
+        public LendingService(string connectionString)
         {
-            repo = repository;
+            repo = Repository.Create(connectionString);
+        }
+
+        public LendingService(Repository repo)
+        {
+            this.repo = repo;
         }
 
         public void SetFine(IUser user, double amount) => repo.SetFine(user, amount);

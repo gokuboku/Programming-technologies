@@ -9,7 +9,7 @@ namespace Library.Data.Interfaces
 {
     public interface ILibraryState
     {
-        public List<IBook> Books { get; }
-        public List<IUser> Users { get; }
+        public IEnumerable<IBook> Books { get; }
+        public IEnumerable<IUser> Users { get; }
     }
 }

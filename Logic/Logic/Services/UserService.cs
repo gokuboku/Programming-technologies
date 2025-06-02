@@ -13,12 +13,18 @@ namespace Library.Logic.Services
     {
         private Repository repo;
 
-        public UserService(Repository repository)
+        public UserService(string connectionString)
         {
-            this.repo = repository;
+            this.repo = Repository.Create(connectionString);
+        }
+
+        public UserService(Repository Repo)
+        {
+            repo = Repo;
         }
 
         public void AddUser(IUser user) => repo.AddUser(user);
         public void RemoveUser(IUser user) => repo.RemoveUser(user);
+        public IEnumerable<IUser> GetNumberOfUsers(int number, int offset) => repo.GetNumberOfUsers(number, offset);
     }
 }

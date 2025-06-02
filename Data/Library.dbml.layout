@@ -21,24 +21,24 @@
         <classShapeMoniker Id="673f0cb1-0d18-4630-90cd-cad8749bcb5d" />
       </nodes>
     </associationConnector>
-    <classShape Id="5900d2f6-4b50-45f0-8b82-5f723d0f327e" absoluteBounds="2.25, 3.75, 2, 2.5401025390625">
+    <classShape Id="ffcea1d5-79bc-40ca-baf2-1ccaad158ae1" absoluteBounds="3, 4.625, 2, 2.5401025390625">
       <DataClassMoniker Name="/LibraryDataContext/book" />
       <nestedChildShapes>
-        <elementListCompartment Id="9d8824a9-046e-4a6b-9436-454f6494fb60" absoluteBounds="2.265, 4.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8c617aa6-dc31-4327-b33b-06908cebf23f" absoluteBounds="3.015, 5.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.25 : 5.65027547200521); (6.7187475 : 5.65027547200521); (6.7187475 : 3.8381982421875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4 : 4.625); (4 : 2.85659912109375); (6.25 : 2.85659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/LibraryDataContext/book/book_event" />
       <nodes>
-        <classShapeMoniker Id="5900d2f6-4b50-45f0-8b82-5f723d0f327e" />
+        <classShapeMoniker Id="ffcea1d5-79bc-40ca-baf2-1ccaad158ae1" />
         <classShapeMoniker Id="673f0cb1-0d18-4630-90cd-cad8749bcb5d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11 : 4.50522420247396); (7.33333333333333 : 4.50522420247396 : JumpStart); (7.16666666666667 : 4.50522420247396 : JumpEnd); (6.80208083333333 : 4.50522420247396 : JumpStart); (6.63541416666667 : 4.50522420247396 : JumpEnd); (4.25 : 4.50522420247396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11 : 5.51567260742188); (5 : 5.51567260742188)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/LibraryDataContext/user/user_book" />
       <nodes>
         <classShapeMoniker Id="6231a212-034c-4d7a-9313-f726a1566438" />
-        <classShapeMoniker Id="5900d2f6-4b50-45f0-8b82-5f723d0f327e" />
+        <classShapeMoniker Id="ffcea1d5-79bc-40ca-baf2-1ccaad158ae1" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
