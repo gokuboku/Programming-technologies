@@ -10,6 +10,7 @@ namespace Library.Presentation.ViewModel
         public ObservableCollection<Book> Books { get; set; } = new();
         public MainWindowViewModel()
         {
+            
             Users.Add(new User { Name = "John", Surname = "Pork", Email = "jpork", Guid = Guid.NewGuid()});
             Users.Add(new User { Name = "Tralalero", Surname = "Tralala", Email = "ttrala", Guid = Guid.NewGuid()});
 
@@ -20,6 +21,20 @@ namespace Library.Presentation.ViewModel
             Books.Add(new Book("978-0-06-112008-4", "To Kill a Mockingbird", "Harper Lee", "Fiction", new DateTime(1960, 7, 11), Guid.NewGuid(), 281));
             Books.Add(new Book("978-1-250-30686-3", "The Midnight Library", "Matt Haig", "Fantasy", new DateTime(2020, 8, 13), Guid.NewGuid(), 304));
         }
+
+        private bool isUserSelected;
+
+        public bool IsUserSelected
+        {
+            get { return isUserSelected; }
+            set 
+            {
+                isUserSelected = SelectedUser.Guid != Guid.Empty;
+                OnPropertyChanged();
+            }
+        }
+
+
 
         private IBook selectedBook;
 
