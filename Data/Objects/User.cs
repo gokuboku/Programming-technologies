@@ -23,6 +23,15 @@ namespace Library.Data.Objects
             FineAmount = 0.0;
         }
 
+        public User(string name, string surname, string email, Guid guid, double fine)
+        {
+            Name = name;
+            Surname = surname;
+            Guid = guid;
+            Email = email;
+            FineAmount = fine;
+        }
+
         public void SetFineAmount(double amount)
         {
             FineAmount = amount;

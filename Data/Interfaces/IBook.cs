@@ -15,7 +15,9 @@ namespace Library.Data.Interfaces
         public DateTime Year { get; }
         public Guid Guid { get; }
         public int Pages { get; }
+        public Guid OwnerId { get; }
         public bool IsAvailable { get; }
         public void SetAvailability(bool isAvailable);
+        public void SetOwner(Guid ownerId);
     }
 }

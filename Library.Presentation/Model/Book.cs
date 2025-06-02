@@ -9,7 +9,6 @@ namespace Library.Presentation.Model
 {
     internal class Book : IBook
     {
-        public Guid Owner { get; set; }
         public string Isbn { get; }
         public string Title { get; }
         public string Author { get; }
@@ -18,7 +17,13 @@ namespace Library.Presentation.Model
         public Guid Guid { get; }
         public int Pages { get; }
         public bool IsAvailable { get; }
+        public Guid OwnerId { get; }
         public void SetAvailability(bool isAvailable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetOwner(Guid ownerId)
         {
             throw new NotImplementedException();
         }
@@ -33,7 +38,7 @@ namespace Library.Presentation.Model
             Guid = guid;
             Pages = pages;
             IsAvailable = true;
-            Owner = Guid.Empty;
+            OwnerId = Guid.Empty;
         }
     }
 }

@@ -12,13 +12,18 @@
 //    [TestClass]
 //    public class UserServiceTest
 //    {
-//        Repository repo = PredefinedDataGenerator.GeneratePredefinedRepo();
+//        private Repository repo;
+//        [TestInitialize]
+//        public void Setup()
+//        {
+//            repo = Repository.Create("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rorad\\Documents\\GitHub\\Programming-technologies\\Data\\Database\\LibraryDatabase.mdf;Integrated Security=True");
+//            repo.TruncateAllData();
+//        }
 //        User user1 = new User("Jonas", "Kiauliena", "jkiaul@email.com");
 
 //        [TestMethod]
 //        public void AddUserWorksCorrectly()
 //        {
-//            Repository repo = Repository.Create();
 //            UserService ls = new UserService(repo);
 //            ls.AddUser(user1);
 //            var usr = repo.GetAllUsers();

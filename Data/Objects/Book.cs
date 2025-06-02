@@ -17,6 +17,7 @@ namespace Library.Data.Objects
         public Guid Guid { get; set; }
         public int Pages { get; set; }
         public bool IsAvailable { get; set; }
+        public Guid OwnerId { get; set; }
         public Book(string title, string author, string genre, DateTime year, string isbn, int pages)
         {
             Title = title;
@@ -27,10 +28,30 @@ namespace Library.Data.Objects
             Isbn = isbn;
             Pages = pages;
             IsAvailable = true;
+            OwnerId = Guid.Empty;
         }
+
+        public Book(string title, string author, string genre, DateTime year, string isbn, int pages, Guid guid)
+        {
+            Title = title;
+            Author = author;
+            Genre = genre;
+            Year = year;
+            Guid = guid;
+            Isbn = isbn;
+            Pages = pages;
+            IsAvailable = true;
+            OwnerId = Guid.Empty;
+        }
+
         public void SetAvailability(bool isAvailable)
         {
             IsAvailable = isAvailable;
+        }
+
+        public void SetOwner(Guid ownerId)
+        {
+            OwnerId = ownerId;
         }
     }
 }

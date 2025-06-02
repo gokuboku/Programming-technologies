@@ -36,70 +36,247 @@ namespace Library.Data
             return new Book(book.Title, book.Author, book.Genre, book.PublishedDate, book.ISBN, book.Pages);
         }
 
-        //public void AddBook(string Title, string Author, string Genre, DateTime PublishedDate, string ISBN, int Pages)
-        //{
-        //    book Book = new book
-        //    {
-        //        Title = Title,
-        //        Author = Author,
-        //        Genre = Genre,
-        //        PublishedDate = PublishedDate,
-        //        ISBN = ISBN,
-        //        Pages = Pages
-        //    };
-        //    event bookEvent = new event
-        //    {
-        //        EventID = ,
-        //        EventDate = DateTime.Now,
-        //        BookGuid = Book.Guid
-        //    };
-        //    context.books.InsertOnSubmit(Book);
-        //    _events.Add(new EventAddBook(Guid.NewGuid(), DateTime.Now, book.Guid));
-        //}
-/*
-        public List<IUser> GetAllUsers() => _libraryState.Users;
-        public List<IBook> GetCatalog() => _libraryState.Books;
-        public ILibraryState GetLibraryState() => _libraryState;
-        public List<IEvent> GetEvents() => _events;
-
-        public void AddUser(IUser user)
+        public void AddBook(string Title, string Author, string Genre, DateTime PublishedDate, string ISBN, int Pages)
         {
-            _libraryState.Users.Add(user);
-            _events.Add(new EventAddUser(Guid.NewGuid(), DateTime.Now, user.Guid));
+            book Book = new book
+            {
+                Title = Title,
+                Author = Author,
+                Genre = Genre,
+                PublishedDate = PublishedDate,
+                ISBN = ISBN,
+                Pages = Pages
+            };
+            @event bookEvent = new @event
+            {
+                EventID = Guid.NewGuid(),
+                EventName = "AddBook",
+                EventDate = DateTime.Now,
+                BookGuid = Book.GUID
+            };
+            context.books.InsertOnSubmit(Book);
+            context.events.InsertOnSubmit(bookEvent);
+            context.SubmitChanges();
         }
 
-        public void RemoveUser(IUser user)
+        public void AddBook(IBook book)
         {
-            _libraryState.Users.Remove(user);
-            _events.Add(new EventRemoveUser(Guid.NewGuid(), DateTime.Now, user.Guid));
+            book Book = new book
+            {
+                Title = book.Title,
+                Author = book.Author,
+                Genre = book.Genre,
+                PublishedDate = book.Year,
+                GUID = book.Guid,
+                ISBN = book.Isbn,
+                Pages = book.Pages
+            };
+            @event bookEvent = new @event
+            {
+                EventID = Guid.NewGuid(),
+                EventName = "AddBook",
+                EventDate = DateTime.Now,
+                BookGuid = Book.GUID
+            };
+            context.books.InsertOnSubmit(Book);
+            context.events.InsertOnSubmit(bookEvent);
+            context.SubmitChanges();
         }
 
         public void RemoveBook(IBook book)
         {
-            _libraryState.Books.Remove(book);
-            _events.Add(new EventRemoveBook(Guid.NewGuid(), DateTime.Now, book.Guid));
+            var dbBook = context.users.FirstOrDefault(u => u.Guid == book.Guid);
+            if (dbBook != null)
+            {
+                context.users.DeleteOnSubmit(dbBook);
+                @event bookEvent = new @event
+                {
+                    EventID = Guid.NewGuid(),
+                    EventName = "RemoveBook",
+                    EventDate = DateTime.Now,
+                    BookGuid = book.Guid
+                };
+                context.events.InsertOnSubmit(bookEvent);
+                context.SubmitChanges();
+            }
         }
+
+        private IUser DbToObject(user user)
+        {
+            if (user == null) return null;
+            return new User(user.Name, user.Surname, user.Email, user.Guid, user.FineAmount);
+        }
+
+        public void AddUser(IUser user)
+        {
+            user User = new user
+            {
+                Name = user.Name,
+                Surname = user.Surname,
+                Email = user.Email,
+                Guid = user.Guid,
+                FineAmount = user.FineAmount
+            };
+            @event userEvent = new @event
+            {
+                EventID = Guid.NewGuid(),
+                EventName = "AddUser",
+                EventDate = DateTime.Now,
+                UserGuid = User.Guid
+            };
+            context.users.InsertOnSubmit(User);
+            context.events.InsertOnSubmit(userEvent);
+            context.SubmitChanges();
+        }
+
+        public void RemoveUser(IUser user)
+        {
+            var dbUser = context.users.FirstOrDefault(u => u.Guid == user.Guid);
+            if (dbUser != null)
+            {
+                context.users.DeleteOnSubmit(dbUser);
+                @event userEvent = new @event
+                {
+                    EventID = Guid.NewGuid(),
+                    EventName = "RemoveUser",
+                    EventDate = DateTime.Now,
+                    UserGuid = user.Guid
+                };
+                context.events.InsertOnSubmit(userEvent);
+                context.SubmitChanges();
+            }
+        }
+
+        public void SetFine(IUser user, double amount)
+        {
+            var dbUser = context.users.FirstOrDefault(u => u.Guid == user.Guid);
+            if (dbUser != null)
+            {
+                dbUser.FineAmount = amount;
+                @event userEvent = new @event
+                {
+                    EventID = Guid.NewGuid(),
+                    EventName = "SetFine",
+                    EventDate = DateTime.Now,
+                    UserGuid = user.Guid,
+                    FineAmount = amount
+                };
+                context.events.InsertOnSubmit(userEvent);
+                context.SubmitChanges();
+            }
+            user.SetFineAmount(amount);
+        }
+
 
         public void BorrowBook(IBook book, IUser user)
         {
-            if (book.IsAvailable)
+            var tempBook = context.books.FirstOrDefault(b => b.GUID == book.Guid);
+            var tempUser = context.users.FirstOrDefault(u => u.Guid == user.Guid);
+            if (tempBook != null && tempBook.IsAvailable && tempUser != null)
             {
+                tempBook.IsAvailable = false;
+                tempBook.OwnerId = tempUser.Guid;
+                @event borrowEvent = new @event
+                {
+                    EventID = Guid.NewGuid(),
+                    EventName = "BorrowBook",
+                    EventDate = DateTime.Now,
+                    BookGuid = book.Guid,
+                    UserGuid = user.Guid
+                };
+                context.events.InsertOnSubmit(borrowEvent);
+                context.SubmitChanges();
                 book.SetAvailability(false);
-                _events.Add(new EventBorrowBook(Guid.NewGuid(), DateTime.Now, book.Guid, user.Guid));
+                book.SetOwner(user.Guid);
             }
         }
 
         public void ReturnBook(IBook book, IUser user)
         {
-            book.SetAvailability(true);
-            _events.Add(new EventReturnBook(Guid.NewGuid(), DateTime.Now, book.Guid, user.Guid));
+            var dbBook = context.books.FirstOrDefault(b => b.GUID == book.Guid);
+            var dbUser = context.users.FirstOrDefault(u => u.Guid == user.Guid);
+            if (dbBook != null && dbUser != null)
+            {
+                dbBook.IsAvailable = true;
+                dbBook.OwnerId = Guid.Empty;
+                @event returnEvent = new @event
+                {
+                    EventID = Guid.NewGuid(),
+                    EventName = "ReturnBook",
+                    EventDate = DateTime.Now,
+                    BookGuid = book.Guid,
+                    UserGuid = user.Guid
+                };
+                context.events.InsertOnSubmit(returnEvent);
+                context.SubmitChanges();
+                book.SetAvailability(true);
+                book.SetOwner(Guid.Empty);
+            }
+        }
+        
+        public List<IUser> GetNumberOfUsers(int number, int offset)
+        {
+            return context.users
+                .Skip(offset)
+                .Take(number)
+                .Select(u => DbToObject(u))
+                .Where(u => u != null)
+                .ToList();
         }
 
-        public void SetFine(IUser user, double amount)
+        public List<IBook> GetNumberOfBooks(int number, int offset)
         {
-            user.SetFineAmount(amount);
-            _events.Add(new EventSetFine(Guid.NewGuid(), DateTime.Now, user.Guid, amount));
-        }*/
+            List<book> users = (
+                from u in context.books
+                select u).Skip(offset).Take(number).ToList();
+
+            return users
+                .Select(u => DbToObject(u))
+                .ToList();
+        }
+
+        public List<IUser> GetAllUsers()
+        {
+
+            List<user> temp = context.users.ToList();
+            return temp.Select(u => DbToObject(u)).ToList();
+            
+        }
+        public List<IBook> GetCatalog()
+        {
+
+            List<book> books = context.books.ToList();
+            return books.Select(b => DbToObject(b)).ToList();
+
+        }
+        public ILibraryState GetLibraryState()
+        {
+            return new LibraryState(GetCatalog(), GetAllUsers());
+        }
+
+        public void TruncateAllData()
+        {
+            context.events.DeleteAllOnSubmit(context.events);
+            context.users.DeleteAllOnSubmit(context.users);
+            context.books.DeleteAllOnSubmit(context.books);
+            context.SubmitChanges();
+           
+        }
+
+        public bool ContainsUser(IUser user)
+        {
+            return context.users.Any(u => u.Guid == user.Guid);
+        }
+
+        public bool ContainsBook(IBook book)
+        {
+            return context.books.Any(u => u.GUID == book.Guid);
+        }
+        //public List<IEvent> GetEvents()
+        //{
+        //    return context.events.Select(e => new Event(e.EventID, e.EventName, e.EventDate)).Cast<IEvent>().ToList();
+        //}
+
     }
 }
 

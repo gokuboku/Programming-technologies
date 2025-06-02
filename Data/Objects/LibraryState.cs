@@ -11,5 +11,11 @@ namespace Library.Data.Objects
     {
         public List<IBook> Books { get; set; } = new();
         public List<IUser> Users { get; set; } = new();
+
+        public LibraryState(List<IBook> books, List<IUser> users)
+        {
+            Books = books;
+            Users = users;
+        }
     }
 }
