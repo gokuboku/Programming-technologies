@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Library.Data
 {
-    public abstract class Repository
+    public abstract class Repository : IDisposable
     {
         protected LibraryDataContext context;
 
@@ -287,11 +287,15 @@ namespace Library.Data
         {
             return context.books.Any(u => u.GUID == book.Guid);
         }
+
+        public void Dispose()
+        {
+            context.Dispose();
+        }
         //public List<IEvent> GetEvents()
         //{
         //    return context.events.Select(e => new Event(e.EventID, e.EventName, e.EventDate)).Cast<IEvent>().ToList();
         //}
-
     }
 }
 
