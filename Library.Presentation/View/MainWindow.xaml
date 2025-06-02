@@ -30,9 +30,9 @@
             <TextBlock FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Book actions"></TextBlock>
             <Button Command="{Binding ShowAllBooksCommand}">Show all books</Button>
             <TextBlock FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Selected user actions"></TextBlock>
-            <Button Visibility="{Binding IsUserSelected}" Command="{Binding ShowAvailableBooksCommand}">Show available books</Button>
-            <Button Visibility="{Binding IsUserSelected}" Command="{Binding ShowBorrowedBooksCommand}">Show borrowed books</Button>
-            <Button Visibility="{Binding IsUserSelected}" Command="{Binding DeleteUserCommand}">Delete user</Button>
+            <Button IsEnabled="{Binding IsUserSelected, Mode=TwoWay}" Command="{Binding ShowAvailableBooksCommand}">Show available books</Button>
+            <Button IsEnabled="{Binding IsUserSelected , Mode=TwoWay}" Command="{Binding ShowBorrowedBooksCommand}">Show borrowed books</Button>
+            <Button IsEnabled="{Binding IsUserSelected, Mode=TwoWay}" Command="{Binding DeleteUserCommand}">Delete user</Button>
 
             <TextBlock FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Add new user to the database"></TextBlock>
             <Button Command="{Binding AddUserCommand}">Add user</Button>

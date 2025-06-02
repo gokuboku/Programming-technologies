@@ -1,9 +1,10 @@
 ﻿using Library.Data;
 using Library.Data.Interfaces;
+using Logic.Logic.Interfaces;
 
 namespace Library.Logic.Services
 {
-    public class LendingService
+    public class LendingService : ILendingService
     {
         private Repository repo;
 

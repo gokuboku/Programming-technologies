@@ -1,17 +1,11 @@
-﻿using Library.Data;
-using System.Configuration;
-using System.Data;
-using System.IO;
-using System.Windows;
-
-namespace Library.Presentation
+using Library.Data;
+namespace PresentationTest
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    [TestClass]
+    public class PresentationTest
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
+        [TestMethod]
+        public void IsMainWindowViewModelCreatedSuccessfully()
         {
             string _DBRelativePath = @"..\..\..\Database\LibraryDatabase.mdf";
             string _BasePath = AppContext.BaseDirectory;
@@ -19,8 +13,6 @@ namespace Library.Presentation
             string connectionString = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security=True";
             var repo = Repository.Create(connectionString);
             var mainWindowViewModel = new ViewModel.MainWindowViewModel(repo);
-            var mainWindow = new MainWindow(mainWindowViewModel);
-            mainWindow.Show();
         }
     }
 }

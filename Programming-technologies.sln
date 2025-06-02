@@ -12,9 +12,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryTest", "LibraryTest\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{12B2DB03-F208-4464-9EE5-5E921E4B2E52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{F4B11A61-CC69-45F2-BC67-997D30DF0C7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{F4B11A61-CC69-45F2-BC67-997D30DF0C7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Presentation", "Library.Presentation\Library.Presentation.csproj", "{12E6D9F7-8038-864A-AF82-B1EC1D52A4AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Presentation", "Library.Presentation\Library.Presentation.csproj", "{12E6D9F7-8038-864A-AF82-B1EC1D52A4AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
