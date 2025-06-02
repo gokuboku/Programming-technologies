@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.Data;
 using Library.Data.Interfaces;
+using Logic.Logic.Interfaces;
 
 namespace Library.Logic.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private Repository repo;
 

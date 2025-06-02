@@ -1,10 +1,10 @@
 ﻿using Library.Data;
 using Library.Data.Interfaces;
-
+using Logic.Logic.Interfaces;
 
 namespace Library.Logic.Services
 {
-    public class BookService
+    public class BookService : IBookService
     {
         private Repository repo;
 
@@ -23,6 +23,5 @@ namespace Library.Logic.Services
         public void BorrowBook(IBook book, IUser user) => repo.BorrowBook(book, user);
         public void ReturnBook(IBook book, IUser user) => repo.ReturnBook(book, user);
         public IEnumerable<IBook> GetNumberOfBooks(int number, int offset) => repo.GetNumberOfBooks(number, offset);
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using Library.Presentation.Model;
+﻿using Library.Data;
+using Library.Presentation.Model;
 using Library.Presentation.MVVM;
 using System.Collections.ObjectModel;
 
@@ -6,20 +7,40 @@ namespace Library.Presentation.ViewModel
 {
     internal class MainWindowViewModel : ViewModelBase
     {
+        private Repository _repo;
         public ObservableCollection<User> Users { get; set; } = new();
         public ObservableCollection<Book> Books { get; set; } = new();
-        public MainWindowViewModel()
+        public RelayCommand ShowAllBooksCommand => new RelayCommand(execute => LoadAllBooks());
+        public MainWindowViewModel(Repository repo)
         {
-            
-            Users.Add(new User { Name = "John", Surname = "Pork", Email = "jpork", Guid = Guid.NewGuid()});
-            Users.Add(new User { Name = "Tralalero", Surname = "Tralala", Email = "ttrala", Guid = Guid.NewGuid()});
+            _repo = repo;
+            foreach (var user in repo.GetAllUsers())
+            {
+                Users.Add(new User
+                {
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    Email = user.Email,
+                    Guid = user.Guid,
+                    FineAmount = user.FineAmount
+                });
+            }
 
-            Books.Add(new Book("978-3-16-148410-0", "The Silent Patient", "Alex Michaelides", "Thriller",
-                new DateTime(2019, 2, 5), Guid.NewGuid(), 336));
-            Books.Add(new Book("978-0-7432-7356-5", "Angels & Demons", "Dan Brown", "Mystery", new DateTime(2000, 5, 1), Guid.NewGuid(), 572));
-            Books.Add(new Book("978-0-452-28423-4", "1984", "George Orwell", "Dystopian", new DateTime(1949, 6, 8), Guid.NewGuid(), 328));
-            Books.Add(new Book("978-0-06-112008-4", "To Kill a Mockingbird", "Harper Lee", "Fiction", new DateTime(1960, 7, 11), Guid.NewGuid(), 281));
-            Books.Add(new Book("978-1-250-30686-3", "The Midnight Library", "Matt Haig", "Fantasy", new DateTime(2020, 8, 13), Guid.NewGuid(), 304));
+            foreach (var book in repo.GetCatalog())
+            {
+                Books.Add(new Book(
+                    book.Isbn,
+                    book.Title,
+                    book.Author,
+                    book.Genre,
+                    book.Year,
+                    book.Guid,
+                    book.Pages)
+                {
+                    OwnerId = book.OwnerId,
+                    IsAvailable = book.IsAvailable
+                });
+            }
         }
 
         private bool isUserSelected;
@@ -29,12 +50,30 @@ namespace Library.Presentation.ViewModel
             get { return isUserSelected; }
             set 
             {
-                isUserSelected = SelectedUser.Guid != Guid.Empty;
+                isUserSelected = value;
                 OnPropertyChanged();
             }
         }
 
-
+        private void LoadAllBooks()
+        {
+            Books.Clear();
+            foreach (var book in _repo.GetCatalog())
+            {
+                Books.Add(new Book(
+                    book.Isbn,
+                    book.Title,
+                    book.Author,
+                    book.Genre,
+                    book.Year,
+                    book.Guid,
+                    book.Pages)
+                {
+                    OwnerId = book.OwnerId,
+                    IsAvailable = book.IsAvailable
+                });
+            }
+        }
 
         private IBook selectedBook;
 
@@ -56,6 +95,7 @@ namespace Library.Presentation.ViewModel
             set 
             { 
                 selectedUser = value; 
+                IsUserSelected = selectedUser != null;
                 OnPropertyChanged();
             }
         }
