@@ -1,5 +1,4 @@
-﻿using Library.Data.Interfaces;
-using Library.Presentation.Model;
+﻿using Library.Presentation.Model;
 using Library.Presentation.MVVM;
 using System.Collections.ObjectModel;
 
@@ -7,7 +6,6 @@ namespace Library.Presentation.ViewModel
 {
     internal class MainWindowViewModel : ViewModelBase
     {
-        // TODO: Make new types in this layer!
         public ObservableCollection<User> Users { get; set; } = new();
         public ObservableCollection<Book> Books { get; set; } = new();
         public MainWindowViewModel()
