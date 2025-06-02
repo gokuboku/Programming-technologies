@@ -10,7 +10,10 @@ namespace LibraryTest
 {
     internal class PredefinedDataGenerator
     {
-        private static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rorad\\Documents\\GitHub\\Programming-technologies\\Data\\Database\\LibraryDatabase.mdf;Integrated Security=True";
+        private static string _DBRelativePath = @"..\..\..\Database\LibraryDatabase.mdf";
+        private static string _BasePath = AppContext.BaseDirectory;
+        private static string _DBPath = Path.GetFullPath(Path.Combine(_BasePath, _DBRelativePath));
+        private static string connectionString = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security=True";
 
         public static User GenerateUser1()
         {
@@ -74,7 +77,11 @@ namespace LibraryTest
 
     internal class RandomDataGenerator
     {
-        private static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rorad\\Documents\\GitHub\\Programming-technologies\\Data\\Database\\LibraryDatabase.mdf;Integrated Security=True";
+        private static string _DBRelativePath = @"..\..\..\Database\LibraryDatabase.mdf";
+        private static string _BasePath = AppContext.BaseDirectory;
+        private static string _DBPath = Path.GetFullPath(Path.Combine(_BasePath, _DBRelativePath));
+        private static string connectionString = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security=True";
+
 
         private static Random random = new Random();
         public static Repository GenerateRandomRepo(int userCount, int bookCount)

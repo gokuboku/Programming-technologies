@@ -25,37 +25,26 @@ namespace LibraryTest
             repo.TruncateAllData();
         }
 
-        //[TestMethod]
-        //public void RandomDataGeneratorIsValid()
-        //{
-        //    Repository repo = RandomDataGenerator.GenerateRandomRepo(10, 10);
-        //    try
-        //    {
-        //        var users = repo.GetAllUsers();
-        //        var books = repo.GetCatalog();
-        //        Assert.IsTrue(users.Count == 10 && books.Count == 10);
-        //    }
-        //    finally
-        //    {
-        //        repo.TruncateAllData();
-        //    }
-        //}
+        [TestMethod]
+        public void RandomDataGeneratorIsValid()
+        {
+            Repository repo = RandomDataGenerator.GenerateRandomRepo(10, 10);
+            var users = repo.GetAllUsers();
+            var books = repo.GetCatalog();
+            Assert.IsTrue(users.Count() == 10 && books.Count() == 10);
+            repo.TruncateAllData();
 
-        //[TestMethod]
-        //public void PredefinedDataGeneratorIsValid()
-        //{
-        //    Repository repo = PredefinedDataGenerator.GeneratePredefinedRepo();
-        //    try
-        //    {
-        //        var users = repo.GetAllUsers();
-        //        var books = repo.GetCatalog();
-        //        Assert.IsTrue(users.Count == 3 && books.Count == 3);
-        //    }
-        //    finally
-        //    {
-        //        repo.TruncateAllData();
-        //    }
-        //}
+        }
+
+        [TestMethod]
+        public void PredefinedDataGeneratorIsValid()
+        {
+            Repository repo = PredefinedDataGenerator.GeneratePredefinedRepo();
+            var users = repo.GetAllUsers();
+            var books = repo.GetCatalog();
+            Assert.IsTrue(users.Count() == 3 && books.Count() == 3);
+            repo.TruncateAllData();
+        }
 
 
         [TestMethod]
