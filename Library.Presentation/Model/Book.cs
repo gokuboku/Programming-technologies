@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library.Data.Interfaces;
-
-namespace Library.Presentation.Model
+﻿namespace Library.Presentation.Model
 {
     internal class Book : IBook
     {
-        public string Isbn { get; }
-        public string Title { get; }
-        public string Author { get; }
-        public string Genre { get; }
-        public DateTime Year { get; }
-        public Guid Guid { get; }
-        public int Pages { get; }
-        public bool IsAvailable { get; }
-        public Guid OwnerId { get; }
+        public Guid OwnerId { get; set; }
+        public string Isbn { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string Genre { get; set; }
+        public DateTime Year { get; set; }
+        public Guid Guid { get; set; }
+        public int Pages { get; set; }
+        public bool IsAvailable { get; set; }
         public void SetAvailability(bool isAvailable)
         {
-            throw new NotImplementedException();
+            IsAvailable = isAvailable;
         }
 
-        public void SetOwner(Guid ownerId)
+        public void SetOwnerId(Guid ownerId)
         {
-            throw new NotImplementedException();
+            OwnerId = ownerId;
         }
 
         public Book(string isbn, string title, string author, string genre, DateTime year, Guid guid, int pages)
