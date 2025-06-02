@@ -232,13 +232,10 @@ namespace Library.Data
 
         public IEnumerable<IBook> GetNumberOfBooks(int number, int offset)
         {
-            IEnumerable<book> users = (
-                from u in context.books
-                select u).Skip(offset).Take(number).ToList();
+            var query = from b in context.books
+                        select DbToObject(b);
 
-            return users
-                .Select(u => DbToObject(u))
-                .ToList();
+            return query.Skip(offset).Take(number).ToList();
         }
 
         public IEnumerable<IUser> GetAllUsers()

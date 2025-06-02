@@ -18,7 +18,11 @@ namespace LibraryTest
         [TestInitialize]
         public void Setup()
         {
-            repo = Repository.Create("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rorad\\Documents\\GitHub\\Programming-technologies\\Data\\Database\\LibraryDatabase.mdf;Integrated Security=True");
+            string _DBRelativePath = @"..\..\..\Database\LibraryDatabase.mdf";
+            string _BasePath = AppContext.BaseDirectory;
+            string _DBPath = Path.GetFullPath(Path.Combine(_BasePath, _DBRelativePath));
+            string connectionString = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security=True";
+            repo = Repository.Create(connectionString);
             repo.TruncateAllData();
             ls = new UserService(repo);
         }
