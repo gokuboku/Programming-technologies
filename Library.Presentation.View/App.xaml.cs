@@ -22,8 +22,6 @@ namespace Library.Presentation.View
             if (File.Exists(_DBPath))
             {
                 repo = VMDataFactory.CreateRepository(connectionString);
-                repo.TruncateAllData();
-                repo.AddBook("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new DateTime(1925, 4, 10), "9780743273565", 180);
             }
             var mainWindowViewModel = new MainWindowViewModel(repo);
             var mainWindow = new MainWindow(mainWindowViewModel);
