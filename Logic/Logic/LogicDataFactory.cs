@@ -1,5 +1,7 @@
 ﻿using Data;
 using Library.Data.Interfaces;
+using Logic.Logic.Interfaces;
+using Logic.Logic.Object;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,24 +12,37 @@ namespace Logic.Logic
 {
     public static class LogicDataFactory
     {
-        public static IRepository CreateRepository(string? connectionString = null)
+        public static IRepositoryLogic CreateRepository(string? connectionString = null)
         {
-            return DataFactory.CreateRepository(connectionString);
+            return new RepositoryLogic(connectionString);
         }
 
-        public static IBook CreateBook(string title, string author, string genre, DateTime publishedDate, string isbn, int pages)
+        public static IBookLogic CreateBook(string title, string author, string genre, DateTime publishedDate, string isbn, int pages)
         {
-            return DataFactory.CreateBook(title, author, genre, publishedDate, isbn, pages);
+            return new BookLogic(title, author, genre, publishedDate, isbn, pages);
+        }
+        public static IBookLogic CreateBook(string title, string author, string genre, DateTime publishedDate, string isbn, int pages, Guid guid)
+        {
+            return new BookLogic(title, author, genre, publishedDate, isbn, pages, guid);
+        }
+        public static IBookLogic CreateBook(string title, string author, string genre, DateTime publishedDate, string isbn, int pages, Guid guid, Guid ownerGuid)
+        {
+            return new BookLogic(title, author, genre, publishedDate, isbn, pages, guid, ownerGuid);
         }
 
-        public static IUser CreateUser(string name, string surname, string email)
+        public static IUserLogic CreateUser(string name, string surname, string email)
         {
-            return DataFactory.CreateUser(name, surname, email);
+            return new UserLogic(name, surname, email);
         }
 
-        public static ILibraryState CreateLibraryState(IEnumerable<IBook> books, IEnumerable<IUser> users)
+        public static IUserLogic CreateUser(string name, string surname, string email, Guid guid, double fineAmount)
         {
-            return DataFactory.CreateLibraryState(books, users);
+            return new UserLogic(name, surname, email, guid, fineAmount);
+        }
+
+        public static ILibraryStateLogic CreateLibraryState(IEnumerable<IBookLogic> books, IEnumerable<IUserLogic> users)
+        {
+            return new LibraryStateLogic(books, users);
         }
     }
 }

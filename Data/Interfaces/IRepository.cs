@@ -28,5 +28,6 @@ namespace Library.Data.Interfaces
         public IEnumerable<IUser> GetNumberOfUsers(int number, int offset);
         public IEnumerable<IBook> GetNumberOfBooks(int number, int offset);
         public void SetFine(IUser user, double amount);
+        public void TruncateAllData();
     }
 }

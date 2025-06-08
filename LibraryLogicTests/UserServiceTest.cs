@@ -1,14 +1,6 @@
-﻿using Data;
-using Library.Data;
-using Library.Data.Interfaces;
-using Library.Data.Objects;
-using Library.Logic.Services;
-using LibraryLogicTests.MockData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LibraryLogicTests.MockData;
+using Logic.Logic;
+using Logic.Logic.Interfaces;
 
 namespace LibraryLogicTests
 {
@@ -16,24 +8,22 @@ namespace LibraryLogicTests
     [DoNotParallelize]
     public class UserServiceTest
     {
-        private IRepository repo;
-        private UserService ls;
+        private MockRepo repo;
         [TestInitialize]
         public void Setup()
         {
             repo = new MockRepo();
-            ls = new UserService(repo);
         }
 
         [TestMethod]
         public void AddUserWorksCorrectly()
         {
-            IUser user1 = DataFactory.CreateUser("John", "Pork", "jpork@email.com");
-            IUser user2 = DataFactory.CreateUser("Tim", "Cheese", "tcheese@email.com");
-            ls.AddUser(user1);
+            IUserLogic user1 = LogicDataFactory.CreateUser("John", "Pork", "jpork@email.com");
+            IUserLogic user2 = LogicDataFactory.CreateUser("Tim", "Cheese", "tcheese@email.com");
+            repo.AddUser(user1);
             Assert.IsTrue(repo.GetAllUsers().Count() == 1);
             Assert.AreEqual(true, repo.ContainsUser(user1));
-            ls.AddUser(user2);
+            repo.AddUser(user2);
             Assert.IsTrue(repo.GetAllUsers().Count() == 2);
             Assert.AreEqual(true, repo.ContainsUser(user2));
         }

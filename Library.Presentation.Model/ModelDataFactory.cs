@@ -1,28 +1,44 @@
 ﻿using Library.Data.Interfaces;
+using Library.Presentation.Model.Interfaces;
+using Library.Presentation.Model.Obejcts;
 using Logic.Logic;
+using Logic.Logic.Interfaces;
 
 namespace Library.Presentation.Model
 {
     public static class ModelDataFactory
     {
-        public static IRepository CreateRepository(string? connectionString = null)
+        public static IRepositoryModel CreateRepository(string? connectionString = null)
         {
-            return LogicDataFactory.CreateRepository(connectionString);
+            return new RepositoryModel(connectionString);
         }
 
-        public static IBook CreateBook(string title, string author, string genre, DateTime publishedDate, string isbn, int pages)
+        public static IBookModel CreateBook(string title, string author, string genre, DateTime publishedDate, string isbn, int pages)
         {
-            return LogicDataFactory.CreateBook(title, author, genre, publishedDate, isbn, pages);
+            return new BookModel(title, author, genre, publishedDate, isbn, pages);
+        }
+        public static IBookModel CreateBook(string title, string author, string genre, DateTime publishedDate, string isbn, int pages, Guid guid)
+        {
+            return new BookModel(title, author, genre, publishedDate, isbn, pages, guid);
+        }
+        public static IBookModel CreateBook(string title, string author, string genre, DateTime publishedDate, string isbn, int pages, Guid guid, Guid ownerGuid)
+        {
+            return new BookModel(title, author, genre, publishedDate, isbn, pages, guid, ownerGuid);
         }
 
-        public static IUser CreateUser(string name, string surname, string email)
+        public static IUserModel CreateUser(string name, string surname, string email)
         {
-            return LogicDataFactory.CreateUser(name, surname, email);
+            return new UserModel(name, surname, email);
         }
 
-        public static ILibraryState CreateLibraryState(IEnumerable<IBook> books, IEnumerable<IUser> users)
+        public static IUserModel CreateUser(string name, string surname, string email, Guid guid, double fineAmount)
         {
-            return LogicDataFactory.CreateLibraryState(books, users);
+            return new UserModel(name, surname, email, guid, fineAmount);
+        }
+
+        public static ILibraryStateModel CreateLibraryState(IEnumerable<IBookModel> books, IEnumerable<IUserModel> users)
+        {
+            return new LibraryStateModel(books, users);
         }
     }
 }

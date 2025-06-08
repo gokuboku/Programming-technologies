@@ -1,52 +1,46 @@
-﻿using Data;
-using Library.Data;
-using Library.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Logic.Logic;
+using Logic.Logic.Interfaces;
+
 
 namespace LibraryLogicTests.MockData
 {
-    internal class MockRepo:IRepository
+    internal class MockRepo:IRepositoryLogic
     {
-        private Dictionary<Guid, IBook> Books = new Dictionary<Guid, IBook>();
-        private Dictionary<Guid, IUser> Users = new Dictionary<Guid, IUser>();
-        private Dictionary<Guid, IEvent> Events = new Dictionary<Guid, IEvent>();
+        private Dictionary<Guid, IBookLogic> Books = new Dictionary<Guid, IBookLogic>();
+        private Dictionary<Guid, IUserLogic> Users = new Dictionary<Guid, IUserLogic>();
         public MockRepo()
         {
 
         }
 
-        public void AddBook(IBook book)
+        public void AddBook(string Title, string Author, string Genre, DateTime PublishedDate, string ISBN, int Pages)
+        {
+            IBookLogic book = LogicDataFactory.CreateBook(Title, Author, Genre, PublishedDate, ISBN, Pages);
+        }
+
+        public void AddBook(IBookLogic book)
         {
             Books[book.Guid] = book;
         }
 
-        public void AddBook(string Title, string Author, string Genre, DateTime PublishedDate, string ISBN, int Pages)
-        {
-            IBook book = DataFactory.CreateBook(Title, Author, Genre, PublishedDate, ISBN, Pages);
-        }
-
-        public void AddUser(IUser user)
+        public void AddUser(IUserLogic user)
         {
             Users[user.Guid] = user;
         }
 
-        public void BorrowBook(IBook book, IUser user)
+        public void BorrowBook(IBookLogic book, IUserLogic user)
         {
             if (!Books.ContainsKey(book.Guid)) throw new KeyNotFoundException("Book not found in repository.");
             if (!Users.ContainsKey(user.Guid)) throw new KeyNotFoundException("User not found in repository.");
             book.SetOwner(user.Guid);
         }
 
-        public bool ContainsBook(IBook book)
+        public bool ContainsBook(IBookLogic book)
         {
             return Books.ContainsKey(book.Guid);
         }
 
-        public bool ContainsUser(IUser user)
+        public bool ContainsUser(IUserLogic user)
         {
             return Users.ContainsKey(user.Guid);
         }
@@ -55,53 +49,10 @@ namespace LibraryLogicTests.MockData
         {
             Books.Clear();
             Users.Clear();
-            Events.Clear();
         }
 
-        public IEnumerable<IUser> GetAllUsers()
-        {
-            return Users.Values;
-        }
 
-        public IBook GetBook(Guid guid)
-        {
-            if (Books.TryGetValue(guid, out IBook book))
-            {
-                return book;
-            }
-            throw new KeyNotFoundException("Book not found in repository.");
-        }
-
-        public IEnumerable<IBook> GetCatalog()
-        {
-            return Books.Values;
-        }
-
-        public ILibraryState GetLibraryState()
-        {
-            return DataFactory.CreateLibraryState(Books.Values, Users.Values);
-        }
-
-        public IEnumerable<IBook> GetNumberOfBooks(int number, int offset)
-        {
-            return Books.Values.Skip(offset).Take(number);
-        }
-
-        public IEnumerable<IUser> GetNumberOfUsers(int number, int offset)
-        {
-            return Users.Values.Skip(offset).Take(number);
-        }
-
-        public IUser GetUser(Guid guid)
-        {
-            if (Users.TryGetValue(guid, out IUser user))
-            {
-                return user;
-            }
-            throw new KeyNotFoundException("User not found in repository.");
-        }
-
-        public void RemoveBook(IBook book)
+        public void RemoveBook(IBookLogic book)
         {
             if (Books.ContainsKey(book.Guid))
             {
@@ -113,7 +64,7 @@ namespace LibraryLogicTests.MockData
             }
         }
 
-        public void RemoveUser(IUser user)
+        public void RemoveUser(IUserLogic user)
         {
             if (Users.ContainsKey(user.Guid))
             {
@@ -125,17 +76,66 @@ namespace LibraryLogicTests.MockData
             }
         }
 
-        public void ReturnBook(IBook book, IUser user)
+        public void ReturnBook(IBookLogic book, IUserLogic user)
         {
             if (!Books.ContainsKey(book.Guid)) throw new KeyNotFoundException("Book not found in repository.");
             if (!Users.ContainsKey(user.Guid)) throw new KeyNotFoundException("User not found in repository.");
-            book.SetOwner(Guid.Empty); // Set owner to empty Guid to indicate the book is returned
+            book.SetOwner(Guid.Empty);
         }
 
-        public void SetFine(IUser user, double amount)
+        public void SetFine(IUserLogic user, double amount)
         {
             if (!Users.ContainsKey(user.Guid)) throw new KeyNotFoundException("User not found in repository.");
             user.SetFineAmount(amount);
+        }
+
+        public IEnumerable<IUserLogic> GetAllUsers()
+        {
+            return Users.Values;
+        }
+
+        public IBookLogic GetBook(Guid guid)
+        {
+            if (Books.TryGetValue(guid, out IBookLogic book))
+            {
+                return book;
+            }
+            throw new KeyNotFoundException("Book not found in repository.");
+        }
+
+        public IEnumerable<IBookLogic> GetCatalog()
+        {
+            return Books.Values;
+        }
+
+        public ILibraryStateLogic GetLibraryState()
+        {
+            return LogicDataFactory.CreateLibraryState(Books.Values, Users.Values);
+        }
+
+        public IEnumerable<IBookLogic> GetNumberOfBooks(int number, int offset)
+        {
+            return Books.Values.Skip(offset).Take(number).ToList();
+        }
+
+        public IEnumerable<IUserLogic> GetNumberOfUsers(int number, int offset)
+        {
+            return Users.Values.Skip(offset).Take(number).ToList();
+        }
+
+        public IUserLogic GetUser(Guid guid)
+        {
+            if (Users.TryGetValue(guid, out IUserLogic user))
+            {
+                return user;
+            }
+            throw new KeyNotFoundException("User not found in repository.");
+        }
+
+        public void TruncateAllData()
+        {
+            Books.Clear();
+            Users.Clear();
         }
     }
 }

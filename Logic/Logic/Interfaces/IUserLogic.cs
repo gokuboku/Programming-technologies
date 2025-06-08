@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Data.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +9,11 @@ namespace Logic.Logic.Interfaces
 {
     public interface IUserLogic
     {
-        public string Name { get; set; }
-
-        public string Surname { get; set; }
-
-        public string Email { get; set; }
-
-        public Guid Guid { get; set; }
-
-        public double FineAmount { get; set; }
-
+        public string Name { get; }
+        public string Surname { get; }
+        public string Email { get; }
+        public Guid Guid { get; }
+        public double FineAmount { get; }
         public void SetFineAmount(double amount);
     }
 }

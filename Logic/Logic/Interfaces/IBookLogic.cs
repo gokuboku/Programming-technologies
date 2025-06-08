@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Data.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,15 +9,15 @@ namespace Logic.Logic.Interfaces
 {
     public interface IBookLogic
     {
-        public Guid OwnerId { get; set; }
-        public string Isbn { get; set; }
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public string Genre { get; set; }
-        public DateTime Year { get; set; }
-        public Guid Guid { get; set; }
-        public int Pages { get; set; }
-        public bool IsAvailable { get; set; }
+        public string Isbn { get; }
+        public string Title { get; }
+        public string Author { get; }
+        public string Genre { get; }
+        public DateTime Year { get; }
+        public Guid Guid { get; }
+        public int Pages { get; }
+        public Guid OwnerId { get; }
+        public bool IsAvailable { get; }
         public void SetAvailability(bool isAvailable);
         public void SetOwner(Guid ownerId);
     }

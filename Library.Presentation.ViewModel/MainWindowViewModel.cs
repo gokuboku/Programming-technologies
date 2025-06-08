@@ -1,26 +1,25 @@
-﻿using Library.Data.Interfaces;
-using Library.Presentation.Model;
+﻿using Library.Presentation.ViewModel.Interfaces;
 using System.Collections.ObjectModel;
 
 namespace Library.Presentation.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private IRepository _repo;
-        public ObservableCollection<IUser> Users { get; set; } = new();
-        public ObservableCollection<IBook> Books { get; set; } = new();
+        private IRepositoryVM _repo;
+        public ObservableCollection<IUserVM> Users { get; set; } = new();
+        public ObservableCollection<IBookVM> Books { get; set; } = new();
         public RelayCommand ShowAllBooksCommand => new RelayCommand(execute => LoadAllBooks());
-        public MainWindowViewModel(IRepository repo)
+        public MainWindowViewModel(IRepositoryVM repo)
         {
             _repo = repo;
             foreach (var user in repo.GetAllUsers())
             {
-                Users.Add(ModelDataFactory.CreateUser(user.Name, user.Surname, user.Email));
+                Users.Add(VMDataFactory.CreateUser(user.Name, user.Surname, user.Email));
             }
 
             foreach (var book in repo.GetCatalog())
             {
-                var temp = ModelDataFactory.CreateBook(book.Title, book.Author, book.Genre, book.Year, book.Isbn, book.Pages);
+                var temp = VMDataFactory.CreateBook(book.Title, book.Author, book.Genre, book.Year, book.Isbn, book.Pages);
                 temp.SetOwner(book.OwnerId);
                 temp.SetAvailability(book.IsAvailable);
                 Books.Add(temp);
@@ -44,16 +43,16 @@ namespace Library.Presentation.ViewModel
             Books.Clear();
             foreach (var book in _repo.GetCatalog())
             {
-                var temp = ModelDataFactory.CreateBook(book.Title, book.Author, book.Genre, book.Year, book.Isbn, book.Pages);
+                var temp = VMDataFactory.CreateBook(book.Title, book.Author, book.Genre, book.Year, book.Isbn, book.Pages);
                 temp.SetOwner(book.OwnerId);
                 temp.SetAvailability(book.IsAvailable);
                 Books.Add(temp);
             }
         }
 
-        private IBook selectedBook;
+        private IBookVM selectedBook;
 
-        public IBook SelectedBook
+        public IBookVM SelectedBook
         {
             get { return selectedBook; }
             set
@@ -63,9 +62,9 @@ namespace Library.Presentation.ViewModel
             }
         }
 
-        private IUser selectedUser;
+        private IUserVM selectedUser;
 
-        public IUser SelectedUser
+        public IUserVM SelectedUser
         {
             get { return selectedUser; }
             set
