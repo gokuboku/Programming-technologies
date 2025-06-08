@@ -24,5 +24,15 @@ namespace LibraryLogicTests
             repo.SetFine(usr, 100.0);
             Assert.AreEqual(100, usr.FineAmount);
         }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            if (repo != null)
+            {
+                repo.TruncateAllData();
+                repo.Dispose();
+            }
+        }
     }
 }

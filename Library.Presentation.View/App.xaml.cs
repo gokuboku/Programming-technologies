@@ -1,4 +1,5 @@
 ﻿using Library.Presentation.ViewModel;
+using Library.Presentation.ViewModel.Interfaces;
 using System.Configuration;
 using System.Data;
 using System.IO;
@@ -13,12 +14,17 @@ namespace Library.Presentation.View
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            IRepositoryVM? repo = null;
             string _DBRelativePath = @"..\..\..\..\LibraryTest\Database\LibraryDatabase.mdf";
             string _BasePath = AppContext.BaseDirectory;
             string _DBPath = Path.GetFullPath(Path.Combine(_BasePath, _DBRelativePath));
             string connectionString = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security=True";
-            var repo = VMDataFactory.CreateRepository(connectionString);
-            repo.AddBook(VMDataFactory.CreateBook("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", DateTime.Now, "9780743273565", 180));
+            if (File.Exists(_DBPath))
+            {
+                repo = VMDataFactory.CreateRepository(connectionString);
+                repo.TruncateAllData();
+                repo.AddBook("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new DateTime(1925, 4, 10), "9780743273565", 180);
+            }
             var mainWindowViewModel = new MainWindowViewModel(repo);
             var mainWindow = new MainWindow(mainWindowViewModel);
             mainWindow.Show();

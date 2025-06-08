@@ -55,6 +55,11 @@ namespace Library.Presentation.ViewModel.Objects
             return _repository.ContainsUser(ModelDataFactory.CreateUser(user.Name, user.Surname, user.Email, user.Guid, user.FineAmount));
         }
 
+        public void Dispose()
+        {
+            _repository.Dispose();
+        }
+
         public IEnumerable<IUserVM> GetAllUsers()
         {
             IEnumerable<IUserVM> userVMs = Enumerable.Empty<IUserVM>();

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class DataFactory
+    public static class DataFactory
     {
         public static IRepository CreateRepository(string? connectionString = null)
         {

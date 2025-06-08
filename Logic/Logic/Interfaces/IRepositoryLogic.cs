@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Logic.Interfaces
 {
-    public interface IRepositoryLogic
+    public interface IRepositoryLogic : IDisposable
     {
         public IEnumerable<IUserLogic> GetAllUsers();
         public IEnumerable<IBookLogic> GetCatalog();

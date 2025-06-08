@@ -3,15 +3,20 @@ using System.Collections.ObjectModel;
 
 namespace Library.Presentation.ViewModel
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase, IDisposable
     {
-        private IRepositoryVM _repo;
+        private IRepositoryVM? _repo;
         public ObservableCollection<IUserVM> Users { get; set; } = new();
         public ObservableCollection<IBookVM> Books { get; set; } = new();
         public RelayCommand ShowAllBooksCommand => new RelayCommand(execute => LoadAllBooks());
-        public MainWindowViewModel(IRepositoryVM repo)
+        public MainWindowViewModel(IRepositoryVM? repo)
         {
             _repo = repo;
+            if (repo == null)
+            {
+                return;
+            }
+
             foreach (var user in repo.GetAllUsers())
             {
                 Users.Add(VMDataFactory.CreateUser(user.Name, user.Surname, user.Email));
@@ -40,6 +45,10 @@ namespace Library.Presentation.ViewModel
 
         private void LoadAllBooks()
         {
+            if (_repo == null)
+            {
+                return;
+            }
             Books.Clear();
             foreach (var book in _repo.GetCatalog())
             {
@@ -47,6 +56,14 @@ namespace Library.Presentation.ViewModel
                 temp.SetOwner(book.OwnerId);
                 temp.SetAvailability(book.IsAvailable);
                 Books.Add(temp);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_repo != null)
+            {
+                _repo.Dispose();
             }
         }
 

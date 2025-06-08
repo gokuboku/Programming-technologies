@@ -55,6 +55,11 @@ namespace Library.Presentation.Model.Obejcts
             return _repository.ContainsUser(LogicDataFactory.CreateUser(user.Name, user.Surname, user.Email, user.Guid, user.FineAmount));
         }
 
+        public void Dispose()
+        {
+            _repository.Dispose();
+        }
+
         public IEnumerable<IUserModel> GetAllUsers()
         {
             IEnumerable<IUserModel> userModels = Enumerable.Empty<IUserModel>();

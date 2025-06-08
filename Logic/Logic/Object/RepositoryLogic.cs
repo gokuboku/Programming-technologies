@@ -53,6 +53,11 @@ namespace Logic.Logic.Object
             return _repository.ContainsUser(DataFactory.CreateUser(user.Name, user.Surname, user.Email, user.Guid, user.FineAmount));
         }
 
+        public void Dispose()
+        {
+            _repository.Dispose();
+        }
+
         public IEnumerable<IUserLogic> GetAllUsers()
         {
             IEnumerable<IUserLogic> userLogics = Enumerable.Empty<IUserLogic>();

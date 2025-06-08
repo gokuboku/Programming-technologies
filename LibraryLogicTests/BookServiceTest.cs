@@ -45,5 +45,15 @@ namespace LibraryLogicTests
             repo.ReturnBook(book, user);
             Assert.AreEqual(book.OwnerId, Guid.Empty);
         }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            if (repo != null)
+            {
+                repo.TruncateAllData();
+                repo.Dispose();
+            }
+        }
     }
 }

@@ -1,15 +1,9 @@
-﻿using Library.Presentation.Model.Interfaces;
-using Library.Presentation.ViewModel.Interfaces;
+﻿using Library.Presentation.ViewModel.Interfaces;
 using Library.Presentation.ViewModel.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Presentation.ViewModel
 {
-    public class VMDataFactory
+    public static class VMDataFactory
     {
         public static IRepositoryVM CreateRepository(string? connectionString = null)
         {

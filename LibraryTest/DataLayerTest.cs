@@ -21,7 +21,6 @@ namespace LibraryDataTest
             string _DBPath = Path.GetFullPath(Path.Combine(_BasePath, _DBRelativePath));
             string connectionString = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security=True";
             repo = Repository.Create(connectionString);
-            repo = Repository.Create(connectionString);
             repo.TruncateAllData();
         }
 
@@ -33,7 +32,6 @@ namespace LibraryDataTest
             var books = repo.GetCatalog();
             Assert.IsTrue(users.Count() == 10 && books.Count() == 10);
             repo.TruncateAllData();
-
         }
 
         [TestMethod]
@@ -73,7 +71,6 @@ namespace LibraryDataTest
             Assert.AreEqual(true, repo.ContainsBook(book2));
             Assert.AreEqual(2, repo.GetCatalog().Count());
             repo.TruncateAllData();
-
         }
 
         [TestMethod]
@@ -101,7 +98,16 @@ namespace LibraryDataTest
             repo.RemoveBook(book);
             Assert.IsFalse(repo.ContainsBook(book));
             repo.TruncateAllData();
-            repo.Dispose();
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            if (repo != null)
+            {
+                repo.TruncateAllData();
+                repo.Dispose();
+            }
         }
     }
 }

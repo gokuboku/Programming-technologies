@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.Presentation.ViewModel.Interfaces
 {
-    public interface IRepositoryVM
+    public interface IRepositoryVM : IDisposable
     {
         public IEnumerable<IUserVM> GetAllUsers();
         public IEnumerable<IBookVM> GetCatalog();
