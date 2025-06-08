@@ -6,28 +6,22 @@ using System.Drawing;
 
 namespace Library.Data
 {
-    public abstract class Repository : IDisposable
+    internal class Repository : LibraryDataContext, IRepository
     {
         protected LibraryDataContext context;
 
-        private class CRepository : Repository
+        protected Repository(string connectionString) : base(connectionString)
         {
-            public CRepository(string connectionString)
-            {
-                context = new LibraryDataContext(connectionString);
-            }
-            public CRepository() 
-            { 
-            }
+            context = new LibraryDataContext(connectionString);
         }
 
         public static Repository Create(string? connectionString = null)
         {
             if (connectionString != null)
             {
-                return new CRepository(connectionString);
+                return new Repository(connectionString);
             }
-            return new CRepository();
+            throw new ArgumentNullException(nameof(connectionString), "Connection string cannot be null. Please provide a valid connection string.");
         }
 
         private IBook DbToObject(book book)
@@ -292,10 +286,6 @@ namespace Library.Data
         {
             context.Dispose();
         }
-        //public List<IEvent> GetEvents()
-        //{
-        //    return context.events.Select(e => new Event(e.EventID, e.EventName, e.EventDate)).Cast<IEvent>().ToList();
-        //}
     }
 }
 

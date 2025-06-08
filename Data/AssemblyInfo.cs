@@ -1,2 +1,2 @@
 ﻿using System.Runtime.CompilerServices;
-[assembly: InternalsVisibleTo("LibraryTest")]
+[assembly: InternalsVisibleTo("LibraryDataTest")]

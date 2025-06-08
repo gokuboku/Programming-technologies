@@ -17,8 +17,8 @@ namespace Library.Presentation
             string _BasePath = AppContext.BaseDirectory;
             string _DBPath = Path.GetFullPath(Path.Combine(_BasePath, _DBRelativePath));
             string connectionString = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security=True";
-            using (var repo = Repository.Create(connectionString) )
-            {            
+            using (var repo = Repository.Create(connectionString))
+            {
                 var mainWindowViewModel = new ViewModel.MainWindowViewModel(repo);
                 var mainWindow = new MainWindow(mainWindowViewModel);
                 mainWindow.Show();

@@ -4,22 +4,23 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using Data;
 using Library.Data;
 using Library.Data.Interfaces;
 using Logic.Logic.Interfaces;
 
 namespace Library.Logic.Services
 {
-    public class UserService : IUserService
+    internal class UserService : IUserService
     {
-        private Repository repo;
+        private IRepository repo;
 
         public UserService(string connectionString)
         {
-            this.repo = Repository.Create(connectionString);
+            this.repo = DataFactory.CreateRepository(connectionString);
         }
 
-        public UserService(Repository Repo)
+        public UserService(IRepository Repo)
         {
             repo = Repo;
         }

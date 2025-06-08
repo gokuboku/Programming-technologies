@@ -48,7 +48,7 @@ namespace Library.Presentation.ViewModel
         public bool IsUserSelected
         {
             get { return isUserSelected; }
-            set 
+            set
             {
                 isUserSelected = value;
                 OnPropertyChanged();
@@ -92,9 +92,9 @@ namespace Library.Presentation.ViewModel
         public IUser SelectedUser
         {
             get { return selectedUser; }
-            set 
-            { 
-                selectedUser = value; 
+            set
+            {
+                selectedUser = value;
                 IsUserSelected = selectedUser != null;
                 OnPropertyChanged();
             }

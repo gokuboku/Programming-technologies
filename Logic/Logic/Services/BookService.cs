@@ -1,19 +1,20 @@
-﻿using Library.Data;
+﻿using Data;
+using Library.Data;
 using Library.Data.Interfaces;
 using Logic.Logic.Interfaces;
 
 namespace Library.Logic.Services
 {
-    public class BookService : IBookService
+    internal class BookService : IBookService
     {
-        private Repository repo;
+        private IRepository repo;
 
         public BookService(string connectionString)
         {
-            this.repo = Repository.Create(connectionString);
+            this.repo = DataFactory.CreateRepository(connectionString);
         }
 
-        public BookService(Repository repo)
+        public BookService(IRepository repo)
         {
             this.repo = repo;
         }

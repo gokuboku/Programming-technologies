@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Library.Data;
 using Library.Data.Objects;
 
-namespace LibraryTest
+namespace LibraryDataTest
 {
     [TestClass]
     [DoNotParallelize]
@@ -101,6 +101,7 @@ namespace LibraryTest
             repo.RemoveBook(book);
             Assert.IsFalse(repo.ContainsBook(book));
             repo.TruncateAllData();
+            repo.Dispose();
         }
     }
 }

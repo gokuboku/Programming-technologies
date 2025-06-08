@@ -1,19 +1,20 @@
-﻿using Library.Data;
+﻿using Data;
+using Library.Data;
 using Library.Data.Interfaces;
 using Logic.Logic.Interfaces;
 
 namespace Library.Logic.Services
 {
-    public class LendingService : ILendingService
+    internal class LendingService : ILendingService
     {
-        private Repository repo;
+        private IRepository repo;
 
         public LendingService(string connectionString)
         {
-            repo = Repository.Create(connectionString);
+            this.repo = DataFactory.CreateRepository(connectionString);
         }
 
-        public LendingService(Repository repo)
+        public LendingService(IRepository repo)
         {
             this.repo = repo;
         }
