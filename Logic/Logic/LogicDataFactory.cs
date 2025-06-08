@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Logic
 {
-    internal class LogicDataFactory
+    public static class LogicDataFactory
     {
         public static IRepository CreateRepository(string? connectionString = null)
         {
